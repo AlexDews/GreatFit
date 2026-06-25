@@ -1,0 +1,40 @@
+// Обязательно для 2026 года
+@use "sass:math";
+
+// ==================== ПЕРЕМЕННЫЕ ====================
+$fontFamily: "Montserrat", sans-serif;
+
+// $fontIcons: "LuminaIcons"; // То, что генерирует fontcustom
+
+// $colorMain: #1a1a1a;
+
+$colorBg: #302c42;
+$colorAccent: #c0b7e8;
+$fontColor: #fff;
+$fontSize: 16px;
+
+// Минимальная ширина страницы
+$minWidth: 320;
+
+// Ширина полотна (макета)
+$maxWidth: 1920;
+
+// Ширина ограничивающего контейнера
+$maxWidthContainer: 1270;
+
+// Общий отступ у контейнера
+$containerPadding: 30;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты в px (добавлены единицы измерения для корректной работы @media)
+$pc: $containerWidth * 1px;
+$tablet: 991.98 * 1px;
+$mobile: 767.98 * 1px;
+$mobileSmall: 479.98 * 1px;
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;

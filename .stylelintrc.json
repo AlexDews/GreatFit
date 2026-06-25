@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-prettier/recommended"
+  ],
+  "ignoreFiles": [
+    "**/*.html",
+    "src/scss/utils/fonts.scss",
+    "src/scss/utils/icon-fonts.scss",
+    "src/scss/styleguide/sprite-map.scss",
+    "node_modules/**/*",
+    "dist/**/*",
+    "build/**/*"
+  ],
+  "rules": {
+    "value-keyword-case": null,
+    "function-name-case": null,
+    "selector-class-pattern": null,
+    "block-no-empty": null,
+    "no-descending-specificity": null,
+    "scss/at-rule-no-unknown": true,
+    "at-rule-no-unknown": null,
+    "scss/dollar-variable-pattern": null,
+    "scss/at-mixin-pattern": null,
+    "scss/percent-placeholder-pattern": null,
+    "keyframes-name-pattern": null,
+    "no-invalid-position-declaration": null,
+    "font-family-no-missing-generic-family-keyword": [
+      true,
+      {
+        "ignoreFontFamilies": ["/swiper-icons/", "/icons/"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.vue"],
+      "customSyntax": "postcss-html"
+    }
+  ]
+}

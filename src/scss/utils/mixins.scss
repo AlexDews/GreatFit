@@ -1,0 +1,110 @@
+// Обязательно для современного Sass
+@use "sass:math";
+@use "sass:string";
+
+// Миксин для AVIF/WEBP (Адаптирован под Vue Scoped Styles)
+@mixin bg($url, $ext, $url2x: null, $ext2x: null) {
+  // --- 1x Базовый (Fallback) ---
+  background-image: url("#{$url}.#{$ext}");
+
+  // --- 1x WebP/AVIF (:global спасает от scoped-изоляции во Vue) ---
+  :global(.webp) & {
+    background-image: url("#{$url}.webp");
+  }
+
+  :global(.avif) & {
+    background-image: url("#{$url}.avif");
+  }
+
+  // --- 2x (Retina) ---
+  @if $url2x {
+    @media (resolution >= 2dppx), (resolution >= 192dpi) {
+      // 2x Базовый (Fallback)
+      background-image: url("#{$url2x}.#{$ext2x}");
+
+      // 2x WebP/AVIF
+      :global(.webp) & {
+        background-image: url("#{$url2x}.webp");
+      }
+
+      :global(.avif) & {
+        background-image: url("#{$url2x}.avif");
+      }
+    }
+  }
+}
+
+// Миксин для быстрого использования иконок
+@mixin icon($char) {
+  font-family: $font-icons;
+  content: $char;
+  display: inline-block;
+  speak: none;
+}
+
+// Percent (расчет процентов)
+@function percent($px, $from) {
+  $result: math.div($px, $from) * 100%;
+  @return $result;
+}
+
+// Currency (добавление символа валюты)
+@mixin currency($sym) {
+  &::after {
+    content: "#{$sym}";
+  }
+}
+
+// Grids (сетка карточек)
+@mixin gridCards($type: fit, $min: 280px, $max: 1fr, $gap: 30px) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat(auto-#{$type}, minmax($min, $max));
+}
+
+// Адаптивное значение (clamp + media queries)
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
+  // 1. Приведение к числам (удаление px)
+  $startSize: math.div($startSize, ($startSize * 0 + 1));
+  $minSize: math.div($minSize, ($minSize * 0 + 1));
+  $widthFrom: math.div($widthFrom, ($widthFrom * 0 + 1));
+  $widthTo: math.div($widthTo, ($widthTo * 0 + 1));
+
+  // 2. Валидация
+  @if $startSize == $minSize {
+    #{$property}: #{$startSize + px};
+  } @else {
+    // 3. Логика для контейнера
+    @if $widthFrom == $containerWidth and $maxWidthContainer == 0 {
+      $widthFrom: $maxWidth;
+    }
+
+    // 4. Математический расчет slope (наклонной)
+    $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+    $yIntersection: -$widthTo * $slope + $minSize;
+
+    $flyValue: string.unquote("#{$yIntersection + px} + #{$slope * 100}vw");
+
+    // 5. Определение границ для clamp()
+    @if $startSize > $minSize {
+      #{$property}: clamp(#{$minSize + px}, #{$flyValue}, #{$startSize + px});
+    } @else {
+      #{$property}: clamp(#{$startSize + px}, #{$flyValue}, #{$minSize + px});
+    }
+
+    // 6. Вывод стилей
+    // Верхняя граница
+    @if $keepSize != 1 and $keepSize != 3 {
+      @media (min-width: #{$widthFrom + px}) {
+        #{$property}: #{$startSize + px};
+      }
+    }
+
+    // Нижняя граница
+    @if $keepSize != 1 {
+      @media (max-width: #{$widthTo + px}) {
+        #{$property}: #{$minSize + px};
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "luminanexus",
+  "version": "1.0.0",
+  "description": "High-performance Vite-based modular assembly with Vue 3",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "concurrently \"npm run fonts\" \"npm run icons\" \"npm run sprite\" \"npm run img:once\"",
+    "build": "npm run assets && vite build",
+    "dev": "npm run assets && concurrently --kill-others \"vite\" \"node scripts/convert-images.js --watch\"",
+    "img:once": "node scripts/convert-images.js",
+    "img:watch": "node scripts/convert-images.js --watch",
+    "icons": "node scripts/icon-fonts.js",
+    "sprite": "node scripts/svg-sprite.js",
+    "fonts": "node scripts/convert-fonts.js",
+    "preview": "vite preview",
+    "lint": "eslint src --fix",
+    "style": "stylelint \"src/**/*.{scss,vue}\" --fix",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "autoprefixer": "10.4.23",
+    "chokidar": "5.0.0",
+    "concurrently": "9.2.1",
+    "eslint": "9.39.2",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-vue": "10.9.2",
+    "glob": "13.0.0",
+    "globals": "17.0.0",
+    "husky": "8.0.0",
+    "postcss": "8.5.6",
+    "postcss-html": "1.8.1",
+    "postcss-pxtorem": "6.1.0",
+    "postcss-sort-media-queries": "5.2.0",
+    "sass": "1.97.1",
+    "sharp": "0.34.5",
+    "stylelint": "16.26.1",
+    "stylelint-config-standard-scss": "16.0.0",
+    "stylelint-prettier": "5.0.3",
+    "svg-sprite": "2.0.4",
+    "vite": "7.3.0",
+    "vite-plugin-checker": "^0.14.4",
+    "vite-plugin-image-optimizer": "2.0.3",
+    "vite-plugin-pwa": "1.2.0",
+    "vite-plugin-zip-pack": "1.2.4",
+    "webfont": "11.2.26",
+    "woff2-encoder": "2.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "> 0.2%"
+  ],
+  "dependencies": {
+    "imask": "^7.6.1",
+    "nouislider": "^15.8.1",
+    "swiper": "^12.0.3",
+    "vue": "^3.5.13",
+    "vue-imask": "^7.6.1"
+  },
+  "overrides": {
+    "vite-plugin-checker": {
+      "vite": "$vite"
+    }
+  }
+}

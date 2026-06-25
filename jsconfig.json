@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "paths": {
+      //~ Теперь каждый путь явно указывает, что он идёт от корня проекта
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@modules/*": ["./src/components/modules/*"],
+      "@icons/*": ["./src/assets/icon-fonts/*"],
+      "@images/*": ["./src/assets/images/*"],
+      "@styles/*": ["./src/scss/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@fonts/*": ["./src/assets/fonts/*"]
+    },
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext"
+  },
+  "include": ["src/**/*"]
+}

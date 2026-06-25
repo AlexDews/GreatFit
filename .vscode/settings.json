@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "*.html": "handlebars"
+  },
+  "emmet.includeLanguages": {
+    "handlebars": "html"
+  },
+  "[handlebars]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  }
+}

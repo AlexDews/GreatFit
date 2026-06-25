@@ -1,0 +1,71 @@
+// Генерируемый файл. Не редактировать вручную!
+@font-face {
+  font-family: "LuminaIcons";
+  src:
+    url("../../assets/fonts/LuminaIcons.woff2") format("woff2"),
+    url("../../assets/fonts/LuminaIcons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+%icon-base {
+  font-family: LuminaIcons;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Карта иконок
+$icon-map: (
+  "filled1": "\EA01",
+  "heart-filled1": "\EA02",
+  "multiple1": "\EA03",
+  "pencil1": "\EA04",
+  "quote1": "\EA05",
+);
+
+// Функция для получения кода иконки
+@function get-icon($name) {
+  @if map.has-key($icon-map, $name) {
+    @return map.get($icon-map, $name);
+  } @else {
+    @warn "Иконка '#{$name}' не найдена в шрифте LuminaIcons";
+    @return null;
+  }
+}
+
+.--icon-filled1::before {
+  @extend %icon-base;
+
+  content: "\EA01";
+}
+
+.--icon-heart-filled1::before {
+  @extend %icon-base;
+
+  content: "\EA02";
+}
+
+.--icon-multiple1::before {
+  @extend %icon-base;
+
+  content: "\EA03";
+}
+
+.--icon-pencil1::before {
+  @extend %icon-base;
+
+  content: "\EA04";
+}
+
+.--icon-quote1::before {
+  @extend %icon-base;
+
+  content: "\EA05";
+}

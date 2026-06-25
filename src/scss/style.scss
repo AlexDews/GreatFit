@@ -1,0 +1,39 @@
+@import "global/null";
+@import "global/fonts";
+@import "global/icon-fonts";
+@import "global/base";
+
+// @import "styleguide/sprite-map";
+
+// ~ Модули (modules)
+// @import "modules/burger";
+
+// @import "modules/datepicker";
+// @import "modules/range";
+// @import "modules/forms";
+
+// @import "modules/swiper";
+
+// ~ Компоненты (components)
+// @import "components/button";
+// @import "components/block";
+
+// ~ Страницы (pages)
+
+// @import "pages/start";
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: $fontFamily;
+  background-color: $colorBg;
+  color: $fontColor;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgb(0 0 0 / 0.4%);
+}
+
+.main {
+  flex: 1;
+}

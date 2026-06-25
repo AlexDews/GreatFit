@@ -1,0 +1,162 @@
+// Геометрия страницы (перенесли из старого style.scss)
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: $fontFamily;
+  background-color: $colorBg;
+  color: $fontColor;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgb(0 0 0 / 0.4%);
+}
+
+.main {
+  flex: 1;
+}
+
+// Отзывчивая сетка / Контейнеры
+@if $responsiveType == 1 {
+  [class*="__container"] {
+    @if $maxWidthContainer > 0 {
+      max-width: $maxWidthContainer + px;
+      box-sizing: content-box;
+      margin: 0 auto;
+    }
+
+    @if $containerPadding > 0 {
+      @if $maxWidthContainer > 0 {
+        padding: 0 #{div($containerPadding, 2)}px; // Используем глобальную функцию div без префикса math.
+      } @else {
+        @include adaptiveValue("padding-left", div($containerPadding, 2), 15);
+        @include adaptiveValue("padding-right", div($containerPadding, 2), 15);
+      }
+    }
+  }
+} @else {
+  [class*="__container"] {
+    margin: 0 auto;
+
+    @if $maxWidthContainer > 0 {
+      max-width: $maxWidthContainer + px;
+      box-sizing: content-box;
+    } @else {
+      @if $containerPadding > 0 {
+        padding: 0 #{div($containerPadding, 2)}px;
+      }
+    }
+
+    @media (max-width: $pc) {
+      max-width: 970px;
+    }
+    @media (max-width: $tablet) {
+      max-width: 750px;
+    }
+    @media (max-width: $mobile) {
+      max-width: none;
+      @if $containerPadding > 0 and $maxWidthContainer > 0 {
+        padding: 0 #{div($containerPadding, 2)}px;
+      }
+    }
+  }
+}
+
+// Стили для отзывчивых картинок (IBG)
+[class*="-ibg"] {
+  position: relative;
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+}
+
+[class*="-ibg_contain"] {
+  img {
+    object-fit: contain;
+  }
+}
+
+// Шаблоны (заготовки)
+%listCounter {
+  list-style-type: none;
+  counter-reset: item;
+  li {
+    position: relative;
+    &::before {
+      counter-increment: item;
+      content: counter(item);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+%responsiveVideo {
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 56.25%;
+  video,
+  iframe,
+  object,
+  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+%videoBackground {
+  video,
+  iframe,
+  object,
+  embed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+  }
+}
+
+%grayfilter {
+  transition: all 0.3s ease 0s;
+  filter: grayscale(1);
+  @media (any-hover: hover) {
+    &:hover {
+      filter: grayscale(0);
+    }
+  }
+}
+
+%noselect {
+  user-select: none;
+}
+%hidescroll {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Системные классы Vue / Анимации / Попапы
+html.lock {
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+[data-spoller] {
+  cursor: pointer;
+}
