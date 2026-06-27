@@ -4,8 +4,8 @@ import path from "path";
 import { compress } from "woff2-encoder";
 
 const FONTS_DIR = path.resolve(process.cwd(), "src/assets/fonts");
-const DEST_SCSS = path.resolve(process.cwd(), "src/scss/utils/fonts.scss");
-const DEST_JSON = path.resolve(process.cwd(), "src/json/styleguide/fonts.json");
+const DEST_SCSS = path.resolve(process.cwd(), "src/scss/global/fonts.scss");
+const DEST_JSON = path.resolve(process.cwd(), "src/styleguide/json/fonts.json");
 
 const getWeight = (name) => {
   const weights = {

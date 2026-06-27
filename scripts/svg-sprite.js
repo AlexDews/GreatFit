@@ -14,13 +14,13 @@ const SRC = {
 
 const DEST = {
   sprite: "src/assets/images/sprite",
-  json: "src/json/styleguide",
-  scss: "src/scss/styleguide",
+  json: "src/styleguide/json",
+  scss: "src/styleguide/scss",
 };
 
 const SPRITE_NAME = "sprite.svg";
 const PREFIX = "--icon-";
-const METADATA_FILE = "src/json/styleguide/.sprite-meta.json";
+const METADATA_FILE = "src/styleguide/json/.sprite-meta.json";
 
 /* ================== UTILS ================== */
 
