@@ -19,7 +19,7 @@ const app = createApp(App);
 // Если в будущем добавишь роутер или Pinia, регистрируй их тут:
 // app.use(router);
 
-app.use(router)
+app.use(router);
 app.mount('#app');
 
 /**

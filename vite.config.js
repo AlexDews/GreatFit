@@ -4,12 +4,14 @@ import vue from "@vitejs/plugin-vue";
 
 import { aliases } from "./vite-settings/aliases";
 import { createVitePlugins } from "./vite-settings/plugins/index";
+import { styleguidePlugin } from "./vite-settings/plugins/styleguide";
 
 const srcDir = path.join(import.meta.dirname, "src");
 
 // ===== НАСТРОЙКИ СБОРКИ ===== //
 const IS_HASH = true; // Кеширование
 const ENABLE_PWA = false; // Манифест, Mobile Service Workers
+const SHOW_STYLEGUIDE = true; // Вкл/Выкл кнопку StyleGuide
 
 export default defineConfig({
   root: srcDir,
@@ -40,6 +42,7 @@ export default defineConfig({
   },
   plugins: [
     vue(), // Обработка Vue-компонентов
-    ...createVitePlugins(srcDir, IS_HASH, ENABLE_PWA), // Никакого лишнего мусора
-  ],
+    ...createVitePlugins(srcDir, IS_HASH, ENABLE_PWA),
+    styleguidePlugin(SHOW_STYLEGUIDE),
+  ].filter(Boolean),
 });

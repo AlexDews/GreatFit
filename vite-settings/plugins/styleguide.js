@@ -34,34 +34,46 @@ function generateDragScript() {
         function updateButtonSide(currentX) {
           const screenWidth = window.innerWidth;
           if (currentX < screenWidth / 2) {
-            button.style.left = '55px';
+            button.style.left = '35px';
             button.style.right = 'auto';
             button.dataset.side = 'left';
           } else {
-            button.style.right = '55px';
+            button.style.right = '35px';
             button.style.left = 'auto';
             button.dataset.side = 'right';
           }
         }
 
         function showButton() {
-          clearTimeout(hideTimeout);
-          button.style.opacity = '1';
-          button.style.transform = 'translateX(0) scale(1)';
-          button.style.pointerEvents = 'auto';
-          button.style.visibility = 'visible';
-        }
+  clearTimeout(hideTimeout);
+  button.style.opacity = '1';
+  button.style.visibility = 'visible';
+  button.style.pointerEvents = 'auto';
+  
+  // Прижимаем кнопку вплотную к хэндлу в зависимости от стороны экрана
+  const side = button.dataset.side;
+  button.style.transform = side === 'left' ? 'translateX(35px) scale(1)' : 'translateX(-35px) scale(1)';
+  
+  // Добавляем хэндлу неоновое свечение, когда кнопка активна
+  dragHandle.style.borderColor = '#00a2ff';
+  dragHandle.style.boxShadow = '0 0 10px rgba(0, 162, 255, 0.4)';
+}
 
         function hideButton() {
-          hideTimeout = setTimeout(() => {
-            if (isDragging) return;
-            const side = button.dataset.side;
-            button.style.opacity = '0';
-            button.style.transform = side === 'left' ? 'translateX(-20px) scale(0.8)' : 'translateX(20px) scale(0.8)';
-            button.style.pointerEvents = 'none';
-            setTimeout(() => { if(button.style.opacity === '0') button.style.visibility = 'hidden'; }, 300);
-          }, 300);
-        }
+  hideTimeout = setTimeout(() => {
+    if (isDragging) return;
+    const side = button.dataset.side;
+    button.style.opacity = '0';
+    button.style.transform = side === 'left' ? 'translateX(110px) scale(0.9)' : 'translateX(-110px) scale(0.9)';
+    button.style.pointerEvents = 'none';
+    
+    // Возвращаем хэндл в дефолтное состояние
+    dragHandle.style.borderColor = '#164670';
+    dragHandle.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+    
+    setTimeout(() => { if(button.style.opacity === '0') button.style.visibility = 'hidden'; }, 300);
+  }, 300);
+}
 
         dragHandle.addEventListener('mousedown', (e) => {
           isDragging = true;
@@ -121,28 +133,32 @@ function generateStyleguideButton() {
   return `
     <div id="draggable-styleguide" 
          style="position: fixed; bottom: 40px; right: 20px; z-index: 999999; 
-                width: 45px; height: 45px; pointer-events: auto; display: flex; align-items: center; justify-content: center;">
+                width: 45px; height: 45px; pointer-events: auto; display: flex; align-items: center; justify-content: center;
+                font-family: 'Montserrat', sans-serif;">
       
-      <a href="/html/styleguide/styleguide.html" 
+      <a href="/styleguide" 
          id="styleguide-button"
          target="_blank" 
          rel="noopener noreferrer"
          style="position: absolute; white-space: nowrap;
-                background: #007bff; color: white; padding: 10px 18px; 
-                border-radius: 50px; text-decoration: none; font-family: sans-serif; 
-                font-size: 13px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,123,255,0.4);
+                background: #092842; color: #eee; padding: 15px 30px; 
+                border-radius: 8px; text-decoration: none;
+                font-size: 13px; font-weight: 600; 
+                border: 1px solid #164670;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.4);
                 display: flex; align-items: center; gap: 8px;
-                transition: opacity 0.3s, transform 0.3s;
+                transition: all 0.3s ease-in-out;
                 opacity: 0; visibility: hidden; z-index: 1;">
-        <span>🎨</span> Styleguide
+         Styleguide
       </a>
 
       <div id="drag-handle" 
-           style="width: 45px; height: 45px; background: #28a745; border-radius: 50%; 
+           style="width: 45px; height: 45px; background: #0c3353; border: 1px solid #164670; border-radius: 8px; 
                   display: flex; align-items: center; justify-content: center;
-                  cursor: grab; user-select: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                  color: white; z-index: 2; position: relative;">
-        <span style="font-size: 20px;">⋮⋮</span>
+                  cursor: grab; user-select: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                  color: #00a2ff; z-index: 2; position: relative;
+                  transition: all 0.2s ease-in-out;">
+        <span style="font-size: 18px; letter-spacing: -1px; font-weight: bold;">⋮⋮</span>
       </div>
     </div>
   `;

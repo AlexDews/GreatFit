@@ -1,0 +1,116 @@
+.styleguide-body {
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+  background: #051a2b;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.section {
+  background: #092842;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+}
+
+h2 {
+  color: #00a2ff;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 0;
+  border-bottom: 1px solid #164670;
+  padding-bottom: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  margin-top: 25px;
+  border: 1px solid #164670;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.2s;
+  color: #eee;
+
+  &:hover {
+    border-color: #00a2ff;
+    background: #0c3353;
+  }
+
+  i, svg {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 0 auto 10px;
+    fill: currentColor;
+  }
+}
+
+code {
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fc76b4;
+  display: block;
+  margin-top: 5px;
+  padding: 7px 10px;
+  border-radius: 4px;
+}
+
+.item-fonts {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 0 0;
+  gap: 20px;
+}
+
+.font-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #eee;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  code {
+    display: inline-block;
+    margin-top: 5px;
+    color: #fc76b4;
+    word-break: break-all;
+  }
+}
+
+.font-text:not(:last-child) {
+  margin-bottom: 10px;
+  color: #eee;
+}
+
+.alphabet {
+  margin-top: 15px;
+  padding: 10px;
+  background: #0c3353;
+  border-radius: 6px;
+
+  p {
+    margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.4;
+    word-break: break-all;
+    letter-spacing: 1px;
+    color: #eee;
+  }
+}

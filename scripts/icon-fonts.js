@@ -10,7 +10,7 @@ const SRC = "src/assets/icon-fonts/*.svg";
 const DEST_FONTS = "src/assets/fonts";
 const DEST_SCSS = "src/scss/utils/icon-fonts.scss";
 const JSON_DEST = "src/styleguide/json";
-const METADATA_FILE = "src/styleguide/json/.font-meta.json";
+const METADATA_FILE = "./meta/.font-meta.json";
 
 async function getFileHash(filePath) {
   const content = await readFile(filePath, "utf-8");

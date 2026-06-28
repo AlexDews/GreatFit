@@ -20,7 +20,7 @@ const DEST = {
 
 const SPRITE_NAME = "sprite.svg";
 const PREFIX = "--icon-";
-const METADATA_FILE = "src/styleguide/json/.sprite-meta.json";
+const METADATA_FILE = "./meta/.sprite-meta.json";
 
 /* ================== UTILS ================== */
 

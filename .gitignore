@@ -5,6 +5,7 @@ dist-ssr/
 build/
 temp/
 docs/
+scripts/meta
 
 # === Кэш инструментов ===
 .eslintcache
