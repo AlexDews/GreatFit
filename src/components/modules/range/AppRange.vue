@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, computed } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import * as noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css"; // Подключаем родные стили либы
 import { RANGE_DEFAULTS } from "./range.config.js";
@@ -169,9 +169,11 @@ onUnmounted(() => {
   box-shadow: none;
   height: 6px;
 }
+
 :deep(.noUi-connect) {
   background: #4f46e5; /* Твой фирменный цвет */
 }
+
 :deep(.noUi-handle) {
   width: 18px;
   height: 18px;
@@ -180,11 +182,12 @@ onUnmounted(() => {
   border-radius: 50%;
   background: #4f46e5;
   border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
   cursor: grab;
 }
-:deep(.noUi-handle:before),
-:deep(.noUi-handle:after) {
+
+:deep(.noUi-handle::before),
+:deep(.noUi-handle::after) {
   display: none; /* Убираем уродские полоски внутри ползунков */
 }
 </style>

@@ -2,6 +2,7 @@
 @import "global/fonts";
 @import "global/icon-fonts";
 @import "global/base";
+@import "../styleguide/scss/sprite-map";
 
 // @import "styleguide/sprite-map";
 
@@ -26,12 +27,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: $fontFamily;
+  font-size: $fontSize;
   background-color: $colorBg;
   color: $fontColor;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-shadow: 1px 1px 1px rgb(0 0 0 / 0.4%);
 }
 
 .main {

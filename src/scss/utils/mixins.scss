@@ -45,6 +45,7 @@
 // Percent (расчет процентов)
 @function percent($px, $from) {
   $result: math.div($px, $from) * 100%;
+
   @return $result;
 }
 
@@ -82,7 +83,6 @@
     // 4. Математический расчет slope (наклонной)
     $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
     $yIntersection: -$widthTo * $slope + $minSize;
-
     $flyValue: string.unquote("#{$yIntersection + px} + #{$slope * 100}vw");
 
     // 5. Определение границ для clamp()

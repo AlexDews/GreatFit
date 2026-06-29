@@ -1,8 +1,8 @@
 <template>
   <div
+    v-click-outside="closeSelect"
     class="form-select-wrapper"
     :class="{ '_has-value': modelValue, [formConfig.classes.selectOpen]: isOpen }"
-    v-click-outside="closeSelect"
   >
     <select
       style="display: none"
@@ -40,7 +40,7 @@
       role="listbox"
     >
       <div
-        v-for="(opt, idx) in options"
+        v-for="opt in options"
         :key="opt.value"
         ref="optionRefs"
         class="custom-select-option"
@@ -113,7 +113,10 @@ const handleKeydown = (e) => {
       isOpen.value = true;
       return;
     }
-    const nextIdx = e.key === "ArrowDown" ? (activeIdx + 1) % props.options.length : (activeIdx - 1 + props.options.length) % props.options.length;
+    const nextIdx =
+      e.key === "ArrowDown"
+        ? (activeIdx + 1) % props.options.length
+        : (activeIdx - 1 + props.options.length) % props.options.length;
     selectOption(props.options[nextIdx]);
     nextTick(() => scrollActiveIntoView());
   }

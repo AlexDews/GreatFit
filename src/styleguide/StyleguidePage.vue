@@ -9,7 +9,7 @@
           class="card"
         >
           <div class="icon-wrapper">
-            <svg><use :xlink:href="`#${icon.id}`"></use></svg>
+            <svg><use :href="`/images/sprite/sprite.svg#${icon.id}`"></use></svg>
           </div>
           <small>{{ icon.name }}</small>
           <code>#{{ icon.id }}</code>
@@ -64,15 +64,15 @@
               </p>
 
               <p
-                class="font-text"
                 v-if="hasBold(font.weights)"
+                class="font-text"
                 style="font-weight: 700"
               >
                 Bold: The quick brown fox jumps over the lazy dog.
               </p>
               <p
-                class="font-text"
                 v-if="hasBold(font.weights)"
+                class="font-text"
                 style="font-weight: 700"
               >
                 Bold: Быстрая бурая лиса перепрыгивает через ленивую собаку.
@@ -118,21 +118,21 @@ onMounted(async () => {
   try {
     const svgRes = await import(`./json/${svgFile}.json`);
     rawSvgIcons.value = svgRes.default || svgRes;
-  } catch (e) {
+  } catch {
     console.warn("Стайлгайд: svg-icons.json еще не создан скриптом.");
   }
 
   try {
     const fontIconsRes = await import(`./json/${fontFile}.json`);
     rawFontIcons.value = fontIconsRes.default || fontIconsRes;
-  } catch (e) {
+  } catch {
     console.warn("Стайлгайд: font-icons.json еще не создан скриптом.");
   }
 
   try {
     const fontsRes = await import(`./json/${fontsDataFile}.json`);
     rawFontsData.value = fontsRes.default || fontsRes;
-  } catch (e) {
+  } catch {
     console.warn("Стайлгайд: fonts.json еще не создан скриптом.");
   }
 });

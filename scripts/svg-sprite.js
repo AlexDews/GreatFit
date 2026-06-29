@@ -13,14 +13,14 @@ const SRC = {
 };
 
 const DEST = {
-  sprite: "src/assets/images/sprite",
+  sprite: "public/images/sprite",
   json: "src/styleguide/json",
   scss: "src/styleguide/scss",
 };
 
 const SPRITE_NAME = "sprite.svg";
 const PREFIX = "--icon-";
-const METADATA_FILE = "./meta/.sprite-meta.json";
+const METADATA_FILE = "./scripts/meta/.sprite-meta.json";
 
 /* ================== UTILS ================== */
 
@@ -166,7 +166,7 @@ async function generateSprite() {
     const result = await spriter.compileAsync();
     //~ ИСПРАВЛЕНО: Безопасное обращение к публичному свойству .contents без приватного _contents
     const spriteFile = result.result?.symbol?.sprite;
-    
+
     if (spriteFile && spriteFile.contents) {
       spriteContent = spriteFile.contents.toString("utf-8");
     }
@@ -178,11 +178,7 @@ async function generateSprite() {
   }
 
   /* ===== WRITE FILES ===== */
-  await Promise.all([
-    mkdir(DEST.sprite, { recursive: true }), 
-    mkdir(DEST.scss, { recursive: true }), 
-    mkdir(DEST.json, { recursive: true })
-  ]);
+  await Promise.all([mkdir(DEST.sprite, { recursive: true }), mkdir(DEST.scss, { recursive: true }), mkdir(DEST.json, { recursive: true })]);
 
   await writeFile(path.join(DEST.sprite, SPRITE_NAME), spriteContent);
 

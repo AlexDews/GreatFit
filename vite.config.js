@@ -14,17 +14,16 @@ const ENABLE_PWA = false; // Манифест, Mobile Service Workers
 const SHOW_STYLEGUIDE = true; // Вкл/Выкл кнопку StyleGuide
 
 export default defineConfig({
-  root: srcDir,
+  root: "./",
   base: "./",
   server: {
     open: true,
     watch: {
       usePolling: true,
-      additionalPaths: [path.resolve(srcDir, "components")],
     },
   },
   build: {
-    outDir: path.join(import.meta.dirname, "dist"),
+    outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {},
   },
@@ -42,7 +41,7 @@ export default defineConfig({
   },
   plugins: [
     vue(), // Обработка Vue-компонентов
-    ...createVitePlugins(srcDir, IS_HASH, ENABLE_PWA),
+    ...createVitePlugins(path.resolve(import.meta.dirname, "src"), IS_HASH, ENABLE_PWA),
     styleguidePlugin(SHOW_STYLEGUIDE),
   ].filter(Boolean),
 });

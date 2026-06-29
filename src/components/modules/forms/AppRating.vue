@@ -13,6 +13,7 @@
         <div
           v-for="star in 5"
           :key="star"
+          ref="starRefs"
           class="rating__item"
           tabindex="0"
           role="button"
@@ -23,7 +24,6 @@
           @keydown.enter.space.prevent="handleRatingClick(star)"
           @keydown.left.prevent="changeFocus(star, -1)"
           @keydown.right.prevent="changeFocus(star, 1)"
-          ref="starRefs"
         ></div>
       </div>
     </div>

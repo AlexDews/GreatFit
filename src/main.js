@@ -1,15 +1,15 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './core/router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./core/router";
 
 /**
  ** LuminaNexus Vite Asset Scanner & Global Styles
  */
 //~ Путь изменен на ./assets/, так как main.js теперь лежит в корне src
-import.meta.glob('./assets/images/**/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+import.meta.glob("./assets/images/**/*.{jpg,jpeg,png,webp,avif}", { eager: true });
 
 //~ Подключаем стили (путь изменен на относительный к корню src)
-import './scss/style.scss';
+import "./scss/style.scss";
 
 /**
  ** LuminaNexus Vue Application Boot
@@ -20,7 +20,7 @@ const app = createApp(App);
 // app.use(router);
 
 app.use(router);
-app.mount('#app');
+app.mount("#app");
 
 /**
  ** LuminaNexus Brand Ecosystem Banner

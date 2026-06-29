@@ -1,0 +1,20 @@
+// AUTO-GENERATED — DO NOT EDIT
+$sprite-prefix: "--icon-";
+$icons: ("slider-arrow", "cart", "arrow");
+
+@mixin icon($name) {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  stroke: currentColor;
+
+  &.icon-stroke {
+    fill: none !important;
+  }
+
+  &.icon-multi {
+    fill: initial;
+    stroke: initial;
+  }
+}

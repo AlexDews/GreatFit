@@ -2,15 +2,16 @@
 @use "sass:math";
 
 // ==================== ПЕРЕМЕННЫЕ ====================
-$fontFamily: "Montserrat", sans-serif;
+$fontFamily: "Inter", sans-serif;
 
 // $fontIcons: "LuminaIcons"; // То, что генерирует fontcustom
 
 // $colorMain: #1a1a1a;
 
-$colorBg: #302c42;
-$colorAccent: #c0b7e8;
-$fontColor: #fff;
+$colorBg: #fff;
+$colorAccent: #485c46;
+$fontColor: #343a40;
+$fontMainColor: #495057;
 $fontSize: 16px;
 
 // Минимальная ширина страницы
@@ -20,7 +21,7 @@ $minWidth: 320;
 $maxWidth: 1920;
 
 // Ширина ограничивающего контейнера
-$maxWidthContainer: 1270;
+$maxWidthContainer: 1320;
 
 // Общий отступ у контейнера
 $containerPadding: 30;

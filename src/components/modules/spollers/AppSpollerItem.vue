@@ -83,6 +83,7 @@ const afterLeave = (el) => {
 .ln-spollers__item {
   border-bottom: 1px solid #ddd;
 }
+
 .ln-spollers__title {
   width: 100%;
   text-align: left;
@@ -94,6 +95,7 @@ const afterLeave = (el) => {
   cursor: pointer;
   outline: none;
 }
+
 .ln-spollers__body {
   padding-bottom: 15px;
   color: #555;

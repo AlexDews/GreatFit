@@ -138,21 +138,24 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
+
 .popup__wrapper {
   padding: 20px;
 }
+
 .popup__content {
   background: #fff;
   padding: 30px;
   position: relative;
   border-radius: 4px;
 }
+
 .popup__close {
   position: absolute;
   top: 10px;
@@ -168,6 +171,7 @@ onMounted(() => {
 .popup-fade-leave-active {
   transition: opacity 0.3s ease;
 }
+
 .popup-fade-enter-from,
 .popup-fade-leave-to {
   opacity: 0;

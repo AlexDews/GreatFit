@@ -7,7 +7,13 @@
     <div
       ref="runLine"
       class="ln-marquee__run-line"
-      :style="marqueeStyles"
+      :style="[
+        marqueeStyles,
+        {
+          '--marquee-duration': duration + 's',
+          '--marquee-reverse': props.reverse === '-1' ? 'reverse' : 'normal',
+        },
+      ]"
     >
       <div
         ref="originalList"
@@ -98,7 +104,9 @@ onUnmounted(() => {
 
   /* Запуск анимации по умолчанию (горизонтальная) */
   animation: ln-marquee-anim var(--marquee-duration) linear infinite;
-  animation-direction: var(--marquee-reverse) === '-1' ? 'reverse' : 'normal';
+
+  /* Stylelint будет счастлив: чистый CSS с дефолтным значением normal */
+  animation-direction: var(--marquee-reverse, normal);
 }
 
 .ln-marquee__list {

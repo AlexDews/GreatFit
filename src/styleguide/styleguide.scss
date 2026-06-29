@@ -1,5 +1,5 @@
 .styleguide-body {
-  font-family: "Montserrat", sans-serif;
+  font-family: Montserrat, sans-serif;
   padding: 40px;
   background: #051a2b;
   min-height: 100vh;
@@ -11,7 +11,7 @@
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 24%);
 }
 
 h2 {
@@ -43,7 +43,8 @@ h2 {
     background: #0c3353;
   }
 
-  i, svg {
+  i,
+  svg {
     font-size: 32px;
     width: 32px;
     height: 32px;
@@ -56,7 +57,7 @@ h2 {
 code {
   font-family: "Fira Code", "Courier New", monospace;
   font-size: 12px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgb(0 0 0 / 20%);
   color: #fc76b4;
   display: block;
   margin-top: 5px;
@@ -67,7 +68,7 @@ code {
 .item-fonts {
   display: flex;
   flex-direction: column;
-  margin: 30px 0 0 0;
+  margin: 30px 0 0;
   gap: 20px;
 }
 

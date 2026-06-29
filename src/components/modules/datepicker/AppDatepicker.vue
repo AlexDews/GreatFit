@@ -1,12 +1,12 @@
 <template>
-  <div class="datepicker-wrapper" v-click-outside="closeCalendar">
+  <div v-click-outside="closeCalendar" class="datepicker-wrapper">
     <input
       type="text"
       :class="[config.inputClass, { [config.errorClass]: hasError }]"
       :value="inputValue"
+      placeholder="ДД.ММ.ГГГГ"
       @input="onInput"
       @focus="openCalendar"
-      placeholder="ДД.ММ.ГГГГ"
     />
 
     <div :class="[config.containerClass, { [config.activeClass]: isOpen }]">
@@ -23,13 +23,13 @@
         </button>
 
         <div v-if="config.useSelectFilters" :class="config.titleClass">
-          <select :class="config.monthSelectClass" v-model="viewMonth">
+          <select v-model="viewMonth" :class="config.monthSelectClass">
             <option v-for="(name, idx) in config.monthNames" :key="idx" :value="idx">
               {{ name }}
             </option>
           </select>
 
-          <select :class="config.yearSelectClass" v-model="viewYear">
+          <select v-model="viewYear" :class="config.yearSelectClass">
             <option v-for="y in yearsRange" :key="y" :value="y">
               {{ y }}
             </option>

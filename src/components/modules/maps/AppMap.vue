@@ -8,7 +8,7 @@
 
 <script setup>
 /* global google, ymaps, DG */
-import { ref, onMounted, computed, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { MAPS_CONFIG } from "./maps.config.js";
 
 const props = defineProps({

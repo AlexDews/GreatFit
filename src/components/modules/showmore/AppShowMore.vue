@@ -1,8 +1,8 @@
 <template>
   <div
+    v-show="isMediaMatched"
     class="ln-showmore"
     :class="{ [SHOWMORE_DEFAULTS.activeClass]: isExpanded }"
-    v-show="isMediaMatched"
   >
     <div
       ref="contentRef"
@@ -20,7 +20,7 @@
     >
       <slot
         name="button"
-        :isExpanded="isExpanded"
+        :is-expanded="isExpanded"
       >
         {{ isExpanded ? "Скрыть" : "Показать еще" }}
       </slot>
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick, watch } from "vue";
+import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
 import { SHOWMORE_DEFAULTS } from "./showmore.config.js";
 
 const props = defineProps({

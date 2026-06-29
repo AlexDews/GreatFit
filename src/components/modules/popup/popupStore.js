@@ -1,4 +1,4 @@
-import { reactive, watch } from "vue";
+import { reactive } from "vue";
 import { POPUP_CONFIG } from "./popup.config.js";
 import { bodyLock, bodyUnlock } from "../funcs.js"; // Твои родные функции лока скролла
 

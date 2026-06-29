@@ -1,7 +1,7 @@
 <template>
   <div
-    class="swiper"
     ref="sliderRef"
+    class="swiper"
   >
     <div class="swiper-wrapper">
       <slot></slot>
@@ -9,12 +9,12 @@
 
     <template v-if="navigation">
       <div
-        class="swiper-button-prev"
         ref="prevRef"
+        class="swiper-button-prev"
       ></div>
       <div
-        class="swiper-button-next"
         ref="nextRef"
+        class="swiper-button-next"
       ></div>
     </template>
   </div>
