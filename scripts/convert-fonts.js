@@ -74,13 +74,13 @@ async function processFonts() {
 }\n\n`;
 
       // Сборка JSON структуры для Styleguide
-      let fontEntry = fontsJson.find(f => f.family === familyName);
+      let fontEntry = fontsJson.find((f) => f.family === familyName);
       if (!fontEntry) {
         fontEntry = {
           name: familyName,
           family: familyName,
           weights: [],
-          sample: "The quick brown fox jumps over the lazy dog"
+          sample: "The quick brown fox jumps over the lazy dog",
         };
         fontsJson.push(fontEntry);
       }
@@ -95,14 +95,13 @@ async function processFonts() {
 
     // Запись сгенерированного SCSS
     await mkdir(path.dirname(DEST_SCSS), { recursive: true });
-    await writeFile(DEST_SCSS, scssContent);
+    await writeFile(DEST_SCSS, scssContent.trim() + "\n");
     console.log(`✨ Обновлен файл: fonts.scss`);
 
     // Запись сгенерированного JSON для Стайл гайда
     await mkdir(path.dirname(DEST_JSON), { recursive: true });
     await writeFile(DEST_JSON, JSON.stringify(fontsJson, null, 2));
     console.log(`✨ Обновлен файл: fonts.json (${fontsJson.length} уникальных семейств)`);
-
   } catch (error) {
     console.error("❌ Ошибка в скрипте шрифтов:", error.message);
   }

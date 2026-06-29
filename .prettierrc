@@ -6,9 +6,10 @@
   "useTabs": false,
   "semi": true,
   "singleQuote": false,
+  "endOfLine": "lf",
   "overrides": [
     {
-      "files": ["*.html", "*.hbs", "*.vue"], 
+      "files": ["*.html", "*.hbs", "*.vue"],
       "options": {
         "printWidth": 120
       }
