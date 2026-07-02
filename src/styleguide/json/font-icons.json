@@ -1,0 +1,22 @@
+[
+  {
+    "name": "arrow",
+    "code": "EA01",
+    "char": ""
+  },
+  {
+    "name": "arrow-nav",
+    "code": "EA02",
+    "char": ""
+  },
+  {
+    "name": "cart",
+    "code": "EA03",
+    "char": ""
+  },
+  {
+    "name": "slider-arrow",
+    "code": "EA04",
+    "char": ""
+  }
+]

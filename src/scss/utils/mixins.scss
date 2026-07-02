@@ -4,10 +4,10 @@
 
 // Миксин для AVIF/WEBP (Адаптирован под Vue Scoped Styles)
 @mixin bg($url, $ext, $url2x: null, $ext2x: null) {
-  // --- 1x Базовый (Fallback) ---
+  // ~ --- 1x Базовый (Fallback) ---
   background-image: url("#{$url}.#{$ext}");
 
-  // --- 1x WebP/AVIF (:global спасает от scoped-изоляции во Vue) ---
+  // ~ --- 1x WebP/AVIF (:global спасает от scoped-изоляции во Vue) ---
   :global(.webp) & {
     background-image: url("#{$url}.webp");
   }
@@ -16,7 +16,7 @@
     background-image: url("#{$url}.avif");
   }
 
-  // --- 2x (Retina) ---
+  // ~ --- 2x (Retina) ---
   @if $url2x {
     @media (resolution >= 2dppx), (resolution >= 192dpi) {
       // 2x Базовый (Fallback)
@@ -34,7 +34,7 @@
   }
 }
 
-// Миксин для быстрого использования иконок
+// ~ Миксин для быстрого использования иконок
 @mixin icon($char) {
   font-family: $font-icons;
   content: $char;
@@ -42,28 +42,28 @@
   speak: none;
 }
 
-// Percent (расчет процентов)
+// ~ Percent (расчет процентов)
 @function percent($px, $from) {
   $result: math.div($px, $from) * 100%;
 
   @return $result;
 }
 
-// Currency (добавление символа валюты)
+// ~ Currency (добавление символа валюты)
 @mixin currency($sym) {
   &::after {
     content: "#{$sym}";
   }
 }
 
-// Grids (сетка карточек)
+// ~ Grids (сетка карточек)
 @mixin gridCards($type: fit, $min: 280px, $max: 1fr, $gap: 30px) {
   display: grid;
   gap: $gap;
   grid-template-columns: repeat(auto-#{$type}, minmax($min, $max));
 }
 
-// Адаптивное значение (clamp + media queries)
+// ~ Адаптивное значение (clamp + media queries)
 @mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
   // 1. Приведение к числам (удаление px)
   $startSize: math.div($startSize, ($startSize * 0 + 1));
@@ -71,7 +71,7 @@
   $widthFrom: math.div($widthFrom, ($widthFrom * 0 + 1));
   $widthTo: math.div($widthTo, ($widthTo * 0 + 1));
 
-  // 2. Валидация
+  // ~ 2. Валидация
   @if $startSize == $minSize {
     #{$property}: #{$startSize + px};
   } @else {

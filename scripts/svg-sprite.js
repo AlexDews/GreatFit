@@ -120,7 +120,6 @@ async function generateSprite() {
       id: {
         generator: (name) => `${PREFIX}${path.parse(name).name}`,
       },
-      //~ ИСПРАВЛЕНО: Современный формат конфигурации плагинов SVGO v2/v3
       transform: [
         {
           svgo: {
@@ -129,11 +128,16 @@ async function generateSprite() {
                 name: "preset-default",
                 params: {
                   overrides: {
-                    removeViewBox: false, // Железно сохраняем viewBox для адаптивности
+                    removeViewBox: false,
                   },
                 },
               },
-              "removeXMLNS", // Удаляем лишние пространства имен из тегов symbol
+              "cleanupIDs",
+              "removeXMLNS",
+              "convertStyleToAttrs",
+              // УБРАЛИ mergePaths, чтобы SVGO насильно не заплывал контуры линий в треугольники
+              "collapseGroups",
+              "sortAttrs",
             ],
           },
         },
@@ -151,7 +155,13 @@ async function generateSprite() {
   /* ===== STROKE ===== */
   for (const file of strokeFiles) {
     let content = await readFile(file, "utf-8");
+    // Чтобы железно застраховаться, принудительно вешаем fill="none" на сам тег path, если его там забыли
     content = content.replace(/fill="[^"]*"/gi, 'fill="none"').replace(/stroke="[^"]*"/gi, 'stroke="currentColor"');
+
+    if (!content.includes("fill=")) {
+      content = content.replace(/<path/gi, '<path fill="none"');
+    }
+
     spriter.add(path.resolve(file), path.basename(file), content);
   }
 
@@ -164,7 +174,6 @@ async function generateSprite() {
   let spriteContent;
   try {
     const result = await spriter.compileAsync();
-    //~ ИСПРАВЛЕНО: Безопасное обращение к публичному свойству .contents без приватного _contents
     const spriteFile = result.result?.symbol?.sprite;
 
     if (spriteFile && spriteFile.contents) {

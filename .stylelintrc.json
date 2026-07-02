@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard-scss", "stylelint-prettier/recommended"],
-  "ignoreFiles": ["**/*.html", "src/scss/utils/fonts.scss", "src/scss/utils/icon-fonts.scss", "src/scss/styleguide/sprite-map.scss", "node_modules/**/*", "dist/**/*", "build/**/*"],
+  "ignoreFiles": ["**/*.html", "src/scss/global/fonts.scss", "src/scss/global/icon-fonts.scss", "src/styleguide/scss/sprite-map.scss", "node_modules/**/*", "dist/**/*", "build/**/*"],
   "rules": {
     "no-empty-source": null,
     "value-keyword-case": null,
@@ -15,6 +15,10 @@
     "scss/percent-placeholder-pattern": null,
     "keyframes-name-pattern": null,
     "no-invalid-position-declaration": null,
+
+    "comment-empty-line-before": null,
+    "rule-empty-line-before": null,
+
     "font-family-no-missing-generic-family-keyword": [
       true,
       {

@@ -6,8 +6,6 @@ import { aliases } from "./vite-settings/aliases";
 import { createVitePlugins } from "./vite-settings/plugins/index";
 import { styleguidePlugin } from "./vite-settings/plugins/styleguide";
 
-const srcDir = path.join(import.meta.dirname, "src");
-
 // ===== НАСТРОЙКИ СБОРКИ ===== //
 const IS_HASH = true; // Кеширование
 const ENABLE_PWA = false; // Манифест, Mobile Service Workers
@@ -26,6 +24,11 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {},
+    assetsInlineLimit: (filePath) => {
+      if (filePath.endsWith("sprite.svg")) {
+        return false;
+      }
+    },
   },
   resolve: { alias: aliases },
   css: {
@@ -33,6 +36,7 @@ export default defineConfig({
       scss: {
         silenceDeprecations: ["import"],
         additionalData: `
+          @use "sass:math";
           @import "@/scss/utils/settings";
           @import "@/scss/utils/mixins";
         `,

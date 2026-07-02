@@ -10,5 +10,9 @@
   {
     "name": "arrow",
     "id": "--icon-arrow"
+  },
+  {
+    "name": "arrow-nav",
+    "id": "--icon-arrow-nav"
   }
 ]

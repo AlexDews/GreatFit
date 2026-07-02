@@ -9,20 +9,25 @@ const DEST_JSON = path.resolve(process.cwd(), "src/styleguide/json/fonts.json");
 
 const getWeight = (name) => {
   const weights = {
-    thin: 100,
-    hairline: 100,
+    extrabold: 800, // Теперь длинные слова будут проверяться первыми
     extralight: 200,
     ultralight: 200,
-    light: 300,
+    semibold: 600,
+    hairline: 100,
     regular: 400,
     medium: 500,
-    semibold: 600,
-    bold: 700,
-    extrabold: 800,
     black: 900,
+    thin: 100,
+    light: 300,
+    bold: 700,
   };
+
   const lowerName = name.toLowerCase().replace(/[-_]/g, "");
-  const found = Object.keys(weights).find((w) => lowerName.includes(w));
+
+  // Сортируем ключи по длине (сначала "extrabold", только потом "bold")
+  const sortedKeys = Object.keys(weights).sort((a, b) => b.length - a.length);
+
+  const found = sortedKeys.find((w) => lowerName.includes(w));
   return weights[found] || 400;
 };
 
@@ -68,7 +73,7 @@ async function processFonts() {
       scssContent += `@font-face {
   font-family: ${familyName};
   font-display: swap;
-  src: url("../assets/fonts/${fileName}.woff2") format("woff2");
+  src: url("@/assets/fonts/${fileName}.woff2") format("woff2");
   font-weight: ${weight};
   font-style: ${isItalic ? "italic" : "normal"};
 }\n\n`;

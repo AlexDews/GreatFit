@@ -4,14 +4,22 @@
     "family": "Inter",
     "weights": [
       900,
-      "italic",
       700,
+      800,
       200,
-      400,
       300,
       500,
+      400,
       600,
       100
+    ],
+    "sample": "The quick brown fox jumps over the lazy dog"
+  },
+  {
+    "name": "LuminaIcons",
+    "family": "LuminaIcons",
+    "weights": [
+      400
     ],
     "sample": "The quick brown fox jumps over the lazy dog"
   },
@@ -20,12 +28,12 @@
     "family": "Montserrat",
     "weights": [
       900,
-      "italic",
       700,
+      800,
       200,
-      400,
       300,
       500,
+      400,
       600,
       100
     ],

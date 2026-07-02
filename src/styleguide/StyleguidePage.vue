@@ -27,7 +27,7 @@
         >
           <i :class="icon.className"></i>
           <small>{{ icon.name }}</small>
-          <code>{{ icon.name }}</code>
+          <code>icon-f-{{ icon.name }}</code>
         </div>
       </div>
     </section>
@@ -147,7 +147,13 @@ const svgIconsList = computed(() => {
 // Обрабатываем шрифтовые иконки
 const fontIconsList = computed(() => {
   return Array.isArray(rawFontIcons.value)
-    ? rawFontIcons.value.map((item) => (typeof item === "string" ? { name: item, className: `--icon-${item}` } : item))
+    ? rawFontIcons.value.map((item) => {
+        const name = item?.name || "unknown";
+        return {
+          name: name,
+          className: `icon-f-${name}`
+        };
+      })
     : [];
 });
 

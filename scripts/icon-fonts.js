@@ -4,13 +4,22 @@ import { globSync } from "glob";
 import path from "path";
 import crypto from "crypto";
 import fs from "fs";
+// ВОТ ОН, РОДНОЙ:
+import outlineStroke from "svg-outline-stroke";
+
+/* ================== CONFIG ================== */
 
 const FONT_NAME = "LuminaIcons";
-const SRC = "@assets/icon-fonts/*.svg";
-const DEST_FONTS = "@assets/fonts";
-const DEST_SCSS = "@scss/global/icon-fonts.scss";
+const SRC = "src/assets/icon-fonts/*.svg";
+const DEST_FONTS = "src/assets/fonts";
+const DEST_SCSS = "src/scss/global/icon-fonts.scss";
 const JSON_DEST = "src/styleguide/json";
 const METADATA_FILE = "./scripts/meta/.iconfont-meta.json";
+
+// Префикс для шрифтовых иконок
+const PREFIX = "icon-f-";
+
+/* ================== UTILS ================== */
 
 async function getFileHash(filePath) {
   const content = await readFile(filePath, "utf-8");
@@ -27,6 +36,8 @@ async function getDirectoryHash(files) {
   );
   return crypto.createHash("md5").update(hashes.sort().join("|")).digest("hex");
 }
+
+/* ================== METADATA ================== */
 
 async function saveMetadata(files) {
   const directoryHash = await getDirectoryHash(files);
@@ -57,6 +68,8 @@ async function loadMetadata() {
   }
 }
 
+/* ================== UPDATE CHECK ================== */
+
 async function _needUpdate(files) {
   const oldMeta = await loadMetadata();
   if (!oldMeta) return true;
@@ -71,6 +84,21 @@ async function _needUpdate(files) {
   return true;
 }
 
+/* ================== FLATTER CLEANUP ================== */
+
+function optimizeSvgCode(content) {
+  return (
+    content
+      // Теперь это безопасно, так как все stroke уже стали физическим fill-контуром
+      .replace(/(fill|stroke)="[^"]*"/gi, "")
+      .replace(/(id|data-name)="[^"]*"/gi, "")
+      .replace(/<g[^>]*>/gi, "")
+      .replace(/<\/g>/gi, "")
+  );
+}
+
+/* ================== GENERATION ================== */
+
 async function generateIcons() {
   try {
     const files = globSync(SRC).map((f) => f.replace(/\\/g, "/"));
@@ -79,19 +107,53 @@ async function generateIcons() {
     const needUpdate = await _needUpdate(files);
     if (!needUpdate) return;
 
-    console.log(`🔄 Генерация шрифта: ${files.length} иконок...`);
+    console.log(`🔄 Конвертация stroke и генерация шрифта: ${files.length} иконок...`);
 
+    const tempDir = path.resolve("./scripts/meta/.temp-clean-svg");
+    await mkdir(tempDir, { recursive: true });
+
+    const cleanFiles = [];
+    for (const file of files) {
+      const originalContent = await readFile(file, "utf-8");
+
+      let processedContent = originalContent;
+
+      // Если в иконке есть линии, плагин автоматически перерисует их в контуры
+      if (originalContent.includes("stroke=")) {
+        try {
+          processedContent = await outlineStroke(originalContent, {
+            outlineStroke: "always",
+          });
+        } catch (err) {
+          console.warn(`⚠️ Не удалось конвертировать stroke для ${path.basename(file)}:`, err);
+        }
+      }
+
+      // Чистим полученный результат регулярками
+      const cleanContent = optimizeSvgCode(processedContent);
+
+      const tempFilePath = path.join(tempDir, path.basename(file)).replace(/\\/g, "/");
+
+      await writeFile(tempFilePath, cleanContent);
+      cleanFiles.push(tempFilePath);
+    }
+
+    // Скармливаем webfont идеально подготовленные файлы
     const result = await webfont({
-      files,
+      files: cleanFiles,
       fontName: FONT_NAME,
       formats: ["woff", "woff2"],
       sort: true,
+      normalize: true,
+      fontHeight: 1000,
     });
+
+    await fs.promises.rm(tempDir, { recursive: true, force: true });
 
     await mkdir(DEST_FONTS, { recursive: true });
     await mkdir(path.dirname(DEST_SCSS), { recursive: true });
-    
-    const fontPath = "../assets/fonts/";
+
+    const fontPath = "../../assets/fonts/";
 
     let scss = `// Генерируемый файл. Не редактировать вручную!
 @use "sass:map";
@@ -106,13 +168,21 @@ async function generateIcons() {
 }
 
 %icon-base {
-  font-family: ${FONT_NAME};
+  font-family: "${FONT_NAME}" !important;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+
+  transform-origin: center center; 
+
   speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -124,7 +194,7 @@ $icon-map: (\n`;
     result.glyphsData.forEach(({ metadata: { name, unicode } }) => {
       const code = unicode[0].charCodeAt(0).toString(16).toUpperCase();
       scss += `  "${name}": "\\${code}",\n`;
-      classes += `.--icon-${name}::before {
+      classes += `.${PREFIX}${name}::before {
   @extend %icon-base;
   content: "\\${code}";
 }\n\n`;
@@ -144,11 +214,7 @@ $icon-map: (\n`;
 
     const finalScss = scss + classes;
 
-    await Promise.all([
-      writeFile(`${DEST_FONTS}/${FONT_NAME}.woff`, result.woff),
-      writeFile(`${DEST_FONTS}/${FONT_NAME}.woff2`, result.woff2),
-      writeFile(DEST_SCSS, finalScss)
-    ]);
+    await Promise.all([writeFile(`${DEST_FONTS}/${FONT_NAME}.woff`, result.woff), writeFile(`${DEST_FONTS}/${FONT_NAME}.woff2`, result.woff2), writeFile(DEST_SCSS, finalScss)]);
 
     const fontIconsData = result.glyphsData.map(({ metadata: { name, unicode } }) => ({
       name: name,
