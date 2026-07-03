@@ -1,76 +1,78 @@
 <template>
-  <header class="header__container header">
-    <div class="header__wrapper">
-      <div class="logo header__logo">
-        <RouterLink
-          to="/"
-          class="logo__link"
+  <header class="header">
+    <div class="header__container">
+      <div class="header__wrapper">
+        <div class="logo header__logo">
+          <RouterLink
+            to="/"
+            class="logo__link"
+          >
+            <img
+              src="@/assets/images/logo/logo.svg"
+              alt="Логотип Название"
+            />
+            <div class="logo__text">
+              <strong>
+                Great
+                <span class="logo__accent">Fit</span>
+              </strong>
+              <span class="logo__subtext">Yoga Studio</span>
+            </div>
+          </RouterLink>
+        </div>
+
+        <nav class="header__nav nav">
+          <RouterLink
+            to="/"
+            class="nav__link"
+          >
+            Home
+          </RouterLink>
+          <RouterLink
+            to="/"
+            class="nav__link"
+          >
+            Services
+            <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
+          </RouterLink>
+          <RouterLink
+            to="/"
+            class="nav__link"
+          >
+            Our Facility
+            <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
+          </RouterLink>
+          <RouterLink
+            to="/"
+            class="nav__link"
+          >
+            About
+          </RouterLink>
+          <RouterLink
+            to="/"
+            class="nav__link"
+          >
+            Contact
+          </RouterLink>
+        </nav>
+
+        <button
+          class="burger-btn"
+          :class="{ 'burger-btn--active': isMenuOpen }"
+          aria-label="Открыть меню"
+          @click="toggleMenu"
         >
-          <img
-            src="@/assets/images/logo/logo.svg"
-            alt="Логотип Название"
-          />
-          <div class="logo__text">
-            <strong>
-              Great
-              <span class="logo__accent">Fit</span>
-            </strong>
-            <span class="logo__subtext">Yoga Studio</span>
-          </div>
-        </RouterLink>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <AppButton class="header__btn">
+          <!-- <div class="icon-f-cart header__cart"></div> -->
+          <svg class="header__cart"><use href="/images/sprite/sprite.svg#--icon-cart"></use></svg>
+          <span>Shop Now</span>
+        </AppButton>
       </div>
-
-      <nav class="header__nav nav">
-        <RouterLink
-          to="/"
-          class="nav__link"
-        >
-          Home
-        </RouterLink>
-        <RouterLink
-          to="/"
-          class="nav__link"
-        >
-          Services
-          <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
-        </RouterLink>
-        <RouterLink
-          to="/"
-          class="nav__link"
-        >
-          Our Facility
-          <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
-        </RouterLink>
-        <RouterLink
-          to="/"
-          class="nav__link"
-        >
-          About
-        </RouterLink>
-        <RouterLink
-          to="/"
-          class="nav__link"
-        >
-          Contact
-        </RouterLink>
-      </nav>
-
-      <button
-        class="burger-btn"
-        :class="{ 'burger-btn--active': isMenuOpen }"
-        aria-label="Открыть меню"
-        @click="toggleMenu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <AppButton class="header__btn">
-        <!-- <div class="icon-f-cart header__cart"></div> -->
-         <svg class="header__cart"><use href="/images/sprite/sprite.svg#--icon-cart"></use></svg>
-        <span>Shop Now</span>
-      </AppButton>
     </div>
   </header>
 </template>
@@ -84,8 +86,11 @@ const { isMenuOpen, toggleMenu } = useBurger();
 
 <style lang="scss" scoped>
 .header {
-  position: relative;
-  z-index: 111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
   &__wrapper {
     display: flex;
     align-items: center;
@@ -114,7 +119,7 @@ const { isMenuOpen, toggleMenu } = useBurger();
     font-weight: 500;
   }
   &__cart {
-    max-width: 15px;
+    width: 15px;
     height: 16px;
     fill: $colorBg;
   }

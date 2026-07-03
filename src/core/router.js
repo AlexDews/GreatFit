@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // 1. Будущие компоненты страниц (пока заглушки)
-const HomePage = () => import("@/components/HomePage.vue");
+const HomePage = () => import("@/pages/HomePage.vue");
 const StyleguidePage = () => import("../styleguide/StyleguidePage.vue");
 
 // 2. Настройка маршрутов
