@@ -1,3 +1,9 @@
+<script setup>
+//~ Импортируем базовые UI-компоненты
+import AppButton from "@/components/ui/AppButton.vue";
+import AppPicture from "@/components/ui/AppPicture.vue";
+</script>
+
 <template>
   <section class="main__hero hero">
     <div class="hero__wrapper">
@@ -23,7 +29,7 @@
             <AppButton class="hero__btn-link">Book A Session</AppButton>
             <AppButton class="hero__btn-contacts">
               <span>Contact Us</span>
-              <i class="icon-f-arrow hero__arrow"></i>
+              <svg class="hero__arrow"><use href="/images/sprite/sprite.svg#--icon-arrow"></use></svg>
             </AppButton>
           </div>
         </div>
@@ -32,18 +38,16 @@
   </section>
 </template>
 
-<script setup>
-//~ Импортируем базовые UI-компоненты
-import AppButton from "@/components/ui/AppButton.vue";
-import AppPicture from "@/components/ui/AppPicture.vue";
-</script>
-
 <style lang="scss" scoped>
-
 .main__hero {
 }
 
 .hero {
+  @include adaptiveValue("padding-top", 120, 100);
+  @include adaptiveValue("padding-bottom", 120, 100);
+  
+  height: 100vh;
+
   // .hero__wrapper
   &__wrapper {
   }
@@ -68,6 +72,7 @@ import AppPicture from "@/components/ui/AppPicture.vue";
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       user-select: none;
       -webkit-user-drag: none;
     }
@@ -79,8 +84,6 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 
   // .hero__content
   &__content {
-    @include adaptiveValue("margin-top", 120, 20);
-
     position: relative;
     width: 45%;
   }
@@ -118,6 +121,7 @@ import AppPicture from "@/components/ui/AppPicture.vue";
   &__btn-contacts {
     display: flex;
     color: $fontMainColor;
+    fill: $fontMainColor;
     font-weight: 600;
     gap: 5px;
     justify-content: center;
@@ -137,6 +141,8 @@ import AppPicture from "@/components/ui/AppPicture.vue";
   // .hero__arrow
   &__arrow {
     transition: transform 0.3s ease 0s;
+    width: 16px;
+    height: 16px;
   }
 }
 </style>

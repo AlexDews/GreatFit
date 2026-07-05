@@ -90,7 +90,7 @@ const { isMenuOpen, toggleMenu } = useBurger();
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 50;
+  z-index: 150;
   &__wrapper {
     display: flex;
     align-items: center;
@@ -281,6 +281,7 @@ const { isMenuOpen, toggleMenu } = useBurger();
 
   .burger-btn--active {
     span {
+      z-index: 101;
       &:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
       }

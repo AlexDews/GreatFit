@@ -9,10 +9,10 @@
 
     @if $containerPadding > 0 {
       @if $maxWidthContainer > 0 {
-        padding: 0 #{div($containerPadding, 2)}px; // Используем глобальную функцию div без префикса math.
+        padding: 0 (math.div($containerPadding, 2) * 1px);
       } @else {
-        @include adaptiveValue("padding-left", div($containerPadding, 2), 15);
-        @include adaptiveValue("padding-right", div($containerPadding, 2), 15);
+        @include adaptiveValue("padding-left", (math.div($containerPadding, 2)), 15);
+        @include adaptiveValue("padding-right", (math.div($containerPadding, 2)), 15);
       }
     }
   }
@@ -25,7 +25,7 @@
       box-sizing: content-box;
     } @else {
       @if $containerPadding > 0 {
-        padding: 0 #{div($containerPadding, 2)}px;
+        padding: 0 (math.div($containerPadding, 2) * 1px);
       }
     }
 
@@ -41,7 +41,7 @@
       max-width: none;
 
       @if $containerPadding > 0 and $maxWidthContainer > 0 {
-        padding: 0 #{div($containerPadding, 2)}px;
+        padding: 0 (math.div($containerPadding, 2) * 1px);
       }
     }
   }

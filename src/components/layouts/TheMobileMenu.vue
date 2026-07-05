@@ -1,17 +1,51 @@
 <template>
-  <div class="mobile-menu" :class="{ 'mobile-menu--open': isMenuOpen }">
-    <div class="mobile-menu__backdrop" @click="isMenuOpen = false"></div>
-    
+  <div
+    class="mobile-menu"
+    :class="{ 'mobile-menu--open': isMenuOpen }"
+  >
+    <div
+      class="mobile-menu__backdrop"
+      @click="isMenuOpen = false"
+    ></div>
+
     <nav class="mobile-menu__nav">
-      <RouterLink to="/" class="mobile-menu__link" @click="isMenuOpen = false">Home</RouterLink>
-      <RouterLink to="/" class="mobile-menu__link" @click="isMenuOpen = false">
-        <i class="icon-f-arrow"></i> Services
+      <RouterLink
+        to="/"
+        class="mobile-menu__link"
+        @click="isMenuOpen = false"
+      >
+        Home
       </RouterLink>
-      <RouterLink to="/" class="mobile-menu__link" @click="isMenuOpen = false">
-        <i class="icon-f-arrow"></i> Our Facility
+      <RouterLink
+        to="/"
+        class="mobile-menu__link"
+        @click="isMenuOpen = false"
+      >
+        Services
+        <svg class="mobile-menu__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
       </RouterLink>
-      <RouterLink to="/" class="mobile-menu__link" @click="isMenuOpen = false">About</RouterLink>
-      <RouterLink to="/" class="mobile-menu__link" @click="isMenuOpen = false">Contact</RouterLink>
+      <RouterLink
+        to="/"
+        class="mobile-menu__link"
+        @click="isMenuOpen = false"
+      >
+        Our Facility
+        <svg class="mobile-menu__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
+      </RouterLink>
+      <RouterLink
+        to="/"
+        class="mobile-menu__link"
+        @click="isMenuOpen = false"
+      >
+        About
+      </RouterLink>
+      <RouterLink
+        to="/"
+        class="mobile-menu__link"
+        @click="isMenuOpen = false"
+      >
+        Contact
+      </RouterLink>
     </nav>
   </div>
 </template>
@@ -59,12 +93,18 @@ const { isMenuOpen } = useBurger();
   }
 
   &__link {
-    color: #000;
+    color: $fontColor;
     text-decoration: none;
     font-size: 20px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    fill: $fontColor;
   }
 
   // Стили при открытом состоянии

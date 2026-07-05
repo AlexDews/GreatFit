@@ -1,9 +1,12 @@
 import { reactive } from "vue";
 import { POPUP_CONFIG } from "./popup.config.js";
-import { bodyLock, bodyUnlock } from "../funcs.js"; // Твои родные функции лока скролла
+import { useBodyLock } from "@/core/useBodyLock.js";
+
+// Инициализируем хук блокировки скролла
+const { lock: bodyLock, unlock: bodyUnlock } = useBodyLock();
 
 export const popupStore = reactive({
-  activePopup: null, // Имя текущего открытого попапа (например, 'callback')
+  activePopup: null,
   previousPopup: null,
 
   open(name) {
@@ -36,7 +39,7 @@ export const popupStore = reactive({
 
     if (POPUP_CONFIG.bodyLock) {
       document.documentElement.classList.remove(POPUP_CONFIG.classes.bodyActive);
-      bodyUnlock();
+      bodyUnlock(); // Вызываем как функцию из хука
     }
 
     if (POPUP_CONFIG.hashSettings.location) {
@@ -47,15 +50,15 @@ export const popupStore = reactive({
   },
 });
 
-// Слушаем изменение хэша (авто-открытие при загрузке или навигации)
+// Слушаем изменение хэша
 if (POPUP_CONFIG.hashSettings.goHash) {
   const checkHash = () => {
-    const hash = window.location.hash.replace('#', '');
+    const hash = window.location.hash.replace("#", "");
     if (hash) {
       popupStore.open(hash);
     } else {
       popupStore.close();
     }
   };
-  window.addEventListener('hashchange', checkHash);
+  window.addEventListener("hashchange", checkHash);
 }

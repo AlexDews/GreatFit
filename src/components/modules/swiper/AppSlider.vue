@@ -48,16 +48,13 @@ let mediaQueryList = null;
 const initSlider = () => {
   if (instance || !sliderRef.value) return;
 
+  const baseNavigation = props.navigation ? { prevEl: prevRef.value, nextEl: nextRef.value } : false;
+
   const config = {
     modules: [Navigation, Autoplay],
     ...SWIPER_CONFIG.defaults,
+    navigation: baseNavigation,
     ...props.options,
-    navigation: props.navigation
-      ? {
-          prevEl: prevRef.value,
-          nextEl: nextRef.value,
-        }
-      : false,
   };
 
   instance = new Swiper(sliderRef.value, config);

@@ -1,7 +1,23 @@
 [
   {
+    "name": "spa",
+    "id": "--icon-spa"
+  },
+  {
     "name": "slider-arrow",
     "id": "--icon-slider-arrow"
+  },
+  {
+    "name": "rug",
+    "id": "--icon-rug"
+  },
+  {
+    "name": "room",
+    "id": "--icon-room"
+  },
+  {
+    "name": "lessons",
+    "id": "--icon-lessons"
   },
   {
     "name": "cart",

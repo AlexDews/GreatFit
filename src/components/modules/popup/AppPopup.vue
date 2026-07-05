@@ -9,7 +9,7 @@
       class="popup"
       role="dialog"
       aria-modal="true"
-      @click="handleOutsideClick"
+      @click.self="closeMe"
       @keydown.tab="handleTabFocus"
     >
       <div class="popup__wrapper">
@@ -60,13 +60,6 @@ const focusableSelectors = [
 ];
 
 const closeMe = () => popupStore.close();
-
-// Закрытие по клику на оверлей (вне контента)
-const handleOutsideClick = (e) => {
-  if (popupContent.value && !popupContent.value.contains(e.target)) {
-    closeMe();
-  }
-};
 
 // Закрытие по Esc
 const handleEsc = (e) => {
@@ -121,7 +114,7 @@ onUnmounted(() => {
 
 onMounted(() => {
   // Если включена автозагрузка по хэшу И хэш совпадает с именем ЭТОГО попапа
-  if (POPUP_CONFIG.hashSettings.goHash && window.location.hash.replace('#', '') === props.name) {
+  if (POPUP_CONFIG.hashSettings.goHash && window.location.hash.replace("#", "") === props.name) {
     // Даем микротаймаут в 50мс, чтобы Vue успел полностью отрисовать структуру
     setTimeout(() => {
       popupStore.open(props.name);

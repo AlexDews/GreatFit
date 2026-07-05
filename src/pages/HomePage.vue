@@ -4,6 +4,7 @@
 
     <main class="main">
       <HomeHero />
+      <HomeServices />
     </main>
 
     <TheFooter />
@@ -17,6 +18,7 @@
 import TheHeader from "@/components/layouts/TheHeader.vue";
 import TheMobileMenu from "@/components/layouts/TheMobileMenu.vue";
 import HomeHero from "@/components/home/HomeHero.vue";
+import HomeServices from "@/components/home/HomeServices.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
 
 //~ Подключаем системное ядро (наш глобальный бутлоадер)

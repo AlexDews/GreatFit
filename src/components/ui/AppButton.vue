@@ -16,7 +16,7 @@
   border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
-  transition: background-color 0.3s ease 0s;
+  transition: background-color 0.3s ease 0s, color 0.3s ease 0s;
 
   @media (any-hover: hover) {
     &:hover {
