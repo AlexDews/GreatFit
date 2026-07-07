@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import AppSwiper from "@modules/swiper/AppSlider.vue";
 import AppButton from "@/components/ui/AppButton.vue";
+import AppTitle from "@/components/ui/AppTitle.vue";
 
 const swiperOptions = ref(null);
 
@@ -16,7 +17,7 @@ onMounted(() => {
       nextEl: ".services__btn--next",
     },
     breakpoints: {
-      320: { spaceBetween: 15 },
+      320: { spaceBetween: 15, centeredSlides: true },
       768: { spaceBetween: 24 },
       992: { spaceBetween: 50 },
     },
@@ -70,10 +71,10 @@ const servicesList = [
 <template>
   <section class="main__services services">
     <div class="services__container">
-      <div class="services__header">
-        <h2 class="services__title">Our Services</h2>
-        <p class="services__subtitle">Sub heading to explain more</p>
-      </div>
+      <AppTitle
+        title="Our Services"
+        subtitle="Sub heading to explain more"
+      />
       <div class="services__slider">
         <div class="swiper-slide services__slide--promo">
           <div class="services__card card">
@@ -137,38 +138,16 @@ const servicesList = [
 }
 .services {
   overflow: hidden;
-	
+
   // .services__container
   &__container {
-  }
-
-  // .services__header
-  &__header {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 25px;
-  }
-
-  // .services__title
-  &__title {
-    font-weight: 700;
-    font-size: 52px;
-    color: $fontColor;
-  }
-
-  // .services__subtitle
-  &__subtitle {
-    font-weight: 500;
-    font-size: 20px;
-    color: #000;
   }
 
   // .services__slider
   &__slider {
     display: flex;
     align-items: center;
-    margin-right: calc(-100vw + 100%);
+    margin-right: calc((100% - #{$maxWidthContainer}px) / -2 - 280px);
 
     @media (max-width: $mobile) {
       margin-right: 0;
@@ -209,6 +188,10 @@ const servicesList = [
   // .services__swiper
   &__swiper {
     padding-left: 50px;
+
+    @media (max-width: $mobile) {
+      padding-left: 0;
+    }
   }
 
   // .services__slide
@@ -217,6 +200,9 @@ const servicesList = [
     background-color: #f6f9fc;
     padding: 35px;
     border-radius: 25px;
+
+    @media (max-width: $mobile) {
+    }
   }
 
   // .services__nav

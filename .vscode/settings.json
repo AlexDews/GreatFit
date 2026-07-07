@@ -13,9 +13,9 @@
 
   // ВОТ ЭТО САМАЯ ВАЖНАЯ ЧАСТЬ: она заставляет линтеры исправлять отступы, пустые строки и точки с запятой
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always",
-    "source.fixAll.stylelint": "always"
+    "source.fixAll.stylelint": "explicit"
   },
+  "stylelint.validate": ["css", "scss", "vue"],
 
   "css.validate": false,
   "less.validate": false,

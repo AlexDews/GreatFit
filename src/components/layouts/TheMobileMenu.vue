@@ -5,21 +5,21 @@
   >
     <div
       class="mobile-menu__backdrop"
-      @click="isMenuOpen = false"
+      @click="closeMenu"
     ></div>
 
     <nav class="mobile-menu__nav">
       <RouterLink
         to="/"
         class="mobile-menu__link"
-        @click="isMenuOpen = false"
+        @click="closeMenu"
       >
         Home
       </RouterLink>
       <RouterLink
         to="/"
         class="mobile-menu__link"
-        @click="isMenuOpen = false"
+        @click="closeMenu"
       >
         Services
         <svg class="mobile-menu__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
@@ -27,7 +27,7 @@
       <RouterLink
         to="/"
         class="mobile-menu__link"
-        @click="isMenuOpen = false"
+        @click="closeMenu"
       >
         Our Facility
         <svg class="mobile-menu__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
@@ -35,14 +35,14 @@
       <RouterLink
         to="/"
         class="mobile-menu__link"
-        @click="isMenuOpen = false"
+        @click="closeMenu"
       >
         About
       </RouterLink>
       <RouterLink
         to="/"
         class="mobile-menu__link"
-        @click="isMenuOpen = false"
+        @click="closeMenu"
       >
         Contact
       </RouterLink>
@@ -53,7 +53,7 @@
 <script setup>
 import { useBurger } from "@/core/useBurger.js";
 
-const { isMenuOpen } = useBurger();
+const { isMenuOpen, closeMenu } = useBurger();
 </script>
 
 <style lang="scss" scoped>

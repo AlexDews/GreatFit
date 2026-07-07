@@ -1,101 +1,140 @@
 <template>
-  <header class="header">
-    <div class="header__container">
-      <div class="header__wrapper">
-        <div class="logo header__logo">
-          <RouterLink
-            to="/"
-            class="logo__link"
+  <ScrollHeader v-slot="{ isFixed, isShow, isAnimating }">
+    <header
+      class="header"
+      :class="{
+        '_is-fixed': isFixed,
+        '_is-animating': isAnimating,
+        '_is-show': isShow,
+      }"
+    >
+      <div class="header__container">
+        <div class="header__wrapper">
+          <div class="logo header__logo">
+            <RouterLink
+              to="/"
+              class="logo__link"
+            >
+              <img
+                src="@/assets/images/logo/logo.svg"
+                alt="Логотип Название"
+              />
+              <div class="logo__text">
+                <strong>
+                  Great
+                  <span class="logo__accent">Fit</span>
+                </strong>
+                <span class="logo__subtext">Yoga Studio</span>
+              </div>
+            </RouterLink>
+          </div>
+
+          <nav class="header__nav nav">
+            <RouterLink
+              to="/"
+              class="nav__link"
+            >
+              Home
+            </RouterLink>
+            <RouterLink
+              to="/"
+              class="nav__link"
+            >
+              Services
+              <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
+            </RouterLink>
+            <RouterLink
+              to="/"
+              class="nav__link"
+            >
+              Our Facility
+              <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
+            </RouterLink>
+            <RouterLink
+              to="/"
+              class="nav__link"
+            >
+              About
+            </RouterLink>
+            <RouterLink
+              to="/"
+              class="nav__link"
+            >
+              Contact
+            </RouterLink>
+          </nav>
+
+          <button
+            class="burger-btn"
+            :class="{ 'burger-btn--active': isMenuOpen }"
+            aria-label="Открыть меню"
+            @click="toggleMenu"
           >
-            <img
-              src="@/assets/images/logo/logo.svg"
-              alt="Логотип Название"
-            />
-            <div class="logo__text">
-              <strong>
-                Great
-                <span class="logo__accent">Fit</span>
-              </strong>
-              <span class="logo__subtext">Yoga Studio</span>
-            </div>
-          </RouterLink>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <AppButton class="header__btn">
+            <svg class="header__cart"><use href="/images/sprite/sprite.svg#--icon-cart"></use></svg>
+            <span>Shop Now</span>
+          </AppButton>
         </div>
-
-        <nav class="header__nav nav">
-          <RouterLink
-            to="/"
-            class="nav__link"
-          >
-            Home
-          </RouterLink>
-          <RouterLink
-            to="/"
-            class="nav__link"
-          >
-            Services
-            <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
-          </RouterLink>
-          <RouterLink
-            to="/"
-            class="nav__link"
-          >
-            Our Facility
-            <svg class="nav__icon"><use href="/images/sprite/sprite.svg#--icon-arrow-nav"></use></svg>
-          </RouterLink>
-          <RouterLink
-            to="/"
-            class="nav__link"
-          >
-            About
-          </RouterLink>
-          <RouterLink
-            to="/"
-            class="nav__link"
-          >
-            Contact
-          </RouterLink>
-        </nav>
-
-        <button
-          class="burger-btn"
-          :class="{ 'burger-btn--active': isMenuOpen }"
-          aria-label="Открыть меню"
-          @click="toggleMenu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <AppButton class="header__btn">
-          <!-- <div class="icon-f-cart header__cart"></div> -->
-          <svg class="header__cart"><use href="/images/sprite/sprite.svg#--icon-cart"></use></svg>
-          <span>Shop Now</span>
-        </AppButton>
       </div>
-    </div>
-  </header>
+    </header>
+  </ScrollHeader>
 </template>
 
 <script setup>
 import { useBurger } from "@/core/useBurger.js";
 import AppButton from "@/components/ui/AppButton.vue";
+import ScrollHeader from "@modules/scroll/ScrollHeader.vue";
 
 const { isMenuOpen, toggleMenu } = useBurger();
 </script>
 
 <style lang="scss" scoped>
 .header {
-  position: fixed;
+  // БАЗОВОЕ СОСТОЯНИЕ (0 - 150px)
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 150;
+  background-color: transparent;
+  transform: translateY(0);
+
+  // РЕЖИМ ФИКСАЦИИ (Ниже 150px, заряжена в -100%)
+  &._is-fixed {
+    position: fixed;
+    background-color: rgb(255 255 255 / 70%);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+    transform: translateY(-100%);
+
+    .header__wrapper {
+      padding: 10px 0;
+    }
+  }
+
+  // РАЗРЕШЕНИЕ АНИМАЦИИ
+  &._is-animating {
+    transition:
+      transform 0.4s ease,
+      background-color 0.3s ease;
+  }
+
+  // ВЫЕЗД ШАПКИ
+  &._is-show {
+    transform: translateY(0);
+  }
+
   &__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 0;
+    transition: padding 0.3s ease;
   }
 
   &__logo {
@@ -118,6 +157,7 @@ const { isMenuOpen, toggleMenu } = useBurger();
     font-size: 14px;
     font-weight: 500;
   }
+
   &__cart {
     width: 15px;
     height: 16px;
@@ -130,7 +170,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
   justify-content: center;
   align-items: center;
 
-  // .logo__link
   &__link {
     display: flex;
     justify-content: center;
@@ -140,7 +179,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
     }
   }
 
-  // .logo__text
   &__text {
     display: flex;
     flex-direction: column;
@@ -167,7 +205,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
 }
 
 .nav {
-  // .nav__link
   &__link {
     position: relative;
     display: inline-flex;
@@ -198,7 +235,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
       &:hover {
         .nav__icon {
           transform: rotate(180deg);
-
           use {
             fill: $fontMainColor;
           }
@@ -212,7 +248,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
     }
   }
 
-  // .nav__icon
   &__icon {
     display: inline-block;
     align-items: center;
@@ -233,16 +268,6 @@ const { isMenuOpen, toggleMenu } = useBurger();
       fill: #000;
       transition: fill 0.3s ease;
     }
-
-    // &::before {
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: center;
-    //   font-size: 19px;
-    //   line-height: 1;
-    //   transform-origin: center center;
-    //   transition: transform 0.3s ease;
-    // }
   }
 }
 
@@ -269,12 +294,11 @@ const { isMenuOpen, toggleMenu } = useBurger();
   }
 }
 
-@media (width <=991.98px) {
+@media (width <= 991.98px) {
   .header__nav,
   .header__btn {
     display: none;
   }
-
   .burger-btn {
     display: flex;
   }
@@ -285,11 +309,9 @@ const { isMenuOpen, toggleMenu } = useBurger();
       &:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
       }
-
       &:nth-child(2) {
         opacity: 0;
       }
-
       &:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
       }

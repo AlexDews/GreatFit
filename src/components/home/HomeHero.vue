@@ -86,11 +86,24 @@ import AppPicture from "@/components/ui/AppPicture.vue";
   &__content {
     position: relative;
     width: 45%;
+
+    @media (max-width:$tablet){
+      width: 75%;
+    }
+
+    @media (max-width:$mobile){
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+    }
   }
 
   // .hero__title
   &__title {
-    @include adaptiveValue("font-size", 66, 46);
+    @include adaptiveValue("font-size", 66, 40);
 
     font-weight: 600;
     text-transform: uppercase;

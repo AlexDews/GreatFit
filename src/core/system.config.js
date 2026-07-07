@@ -5,6 +5,7 @@ export const SYSTEM_CONFIG = {
   //~ Настройки бургер-меню и блокировки скролла
   burger: {
     menuOpenClass: "menu-open", // Класс открытого меню на теге <html>
+    burgerBtn: ".burger-btn",
     lockClass: "lock", // Класс блокировки скролла на теге <html>
     bodyLockDelay: 500, // Задержка блокировки в мс (под CSS-анимацию)
     paddingAttr: "[data-lp]", // Маркер фиксированных элементов для предотвращения прыжка страницы

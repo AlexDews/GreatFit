@@ -6,13 +6,17 @@
     <div
       v-if="!isMobile"
       class="ln-tabs__titles"
+      :class="classTitles"
     >
       <button
         v-for="(item, index) in items"
         :key="'title-' + index"
         type="button"
         class="ln-tabs__title"
-        :class="{ [TABS_DEFAULTS.activeClass]: activeIndex === index }"
+        :class="[
+          { [TABS_DEFAULTS.activeClass]: activeIndex === index }, // Твой активный класс
+          classTab, // Твой кастомный класс из пропсов
+        ]"
         @click="selectTab(index)"
       >
         {{ item.title }}
@@ -29,13 +33,14 @@
           v-if="isMobile"
           type="button"
           class="ln-tabs__title ln-tabs__title--mobile"
-          :class="{ [TABS_DEFAULTS.activeClass]: activeIndex === index }"
+          :class="[{ [TABS_DEFAULTS.activeClass]: activeIndex === index }, customTabClass]"
           @click="selectTab(index)"
         >
           {{ item.title }}
         </button>
 
         <Transition
+          mode="out-in"
           @before-enter="beforeEnter"
           @enter="enter"
           @after-enter="afterEnter"
@@ -68,6 +73,14 @@ const props = defineProps({
   media: { type: String, default: "768" },
   // Уникальный ID группы табов на странице для хэша (чтобы не путать, если их несколько)
   id: { type: String, default: "0" },
+  classTab: {
+    type: String,
+    default: "",
+  },
+  classTitles: {
+    type: String,
+    default: "",
+  },
 });
 
 const activeIndex = ref(0);

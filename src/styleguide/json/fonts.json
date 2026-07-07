@@ -16,14 +16,6 @@
     "sample": "The quick brown fox jumps over the lazy dog"
   },
   {
-    "name": "LuminaIcons",
-    "family": "LuminaIcons",
-    "weights": [
-      400
-    ],
-    "sample": "The quick brown fox jumps over the lazy dog"
-  },
-  {
     "name": "Montserrat",
     "family": "Montserrat",
     "weights": [
