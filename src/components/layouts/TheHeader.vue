@@ -75,7 +75,7 @@
             <span></span>
           </button>
 
-          <AppButton class="header__btn">
+          <AppButton to="/" class="header__btn">
             <svg class="header__cart"><use href="/images/sprite/sprite.svg#--icon-cart"></use></svg>
             <span>Shop Now</span>
           </AppButton>

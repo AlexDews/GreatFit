@@ -83,7 +83,7 @@ const servicesList = [
               Explore yoga at our serene studio with a complimentary session. Meet our instructors and discover the
               benefits
             </p>
-            <AppButton class="card__btn card__btn--promo">Get Started Today</AppButton>
+            <AppButton to="/" class="card__btn card__btn--promo">Get Started Today</AppButton>
           </div>
         </div>
         <AppSwiper

@@ -8,7 +8,6 @@ const classItems = [
   {
     id: "beginners",
     title: "Beginners Yoga",
-    image: "",
     text: "Perfect for newcomers, our beginners yoga classes focus on foundational poses and techniques to build strength, flexibility, and confidence. Start your yoga journey with us in a supportive and friendly environment.",
     features: [
       {
@@ -32,7 +31,6 @@ const classItems = [
   {
     id: "stretching",
     title: "Stretching",
-    image: "",
     text: "Perfect for newcomers, our beginners yoga classes focus on foundational poses and techniques to build strength, flexibility, and confidence. Start your yoga journey with us in a supportive and friendly environment.",
     features: [
       {
@@ -56,7 +54,6 @@ const classItems = [
   {
     id: "fly",
     title: "Fly-Yoga",
-    image: "",
     text: "Perfect for newcomers, our beginners yoga classes focus on foundational poses and techniques to build strength, flexibility, and confidence. Start your yoga journey with us in a supportive and friendly environment.",
     features: [
       {
@@ -80,7 +77,6 @@ const classItems = [
   {
     id: "yin",
     title: "Yin-Yoga",
-    image: "",
     text: "Perfect for newcomers, our beginners yoga classes focus on foundational poses and techniques to build strength, flexibility, and confidence. Start your yoga journey with us in a supportive and friendly environment.",
     features: [
       {
@@ -104,7 +100,6 @@ const classItems = [
   {
     id: "zoomba",
     title: "Zoomba",
-    image: "",
     text: "Perfect for newcomers, our beginners yoga classes focus on foundational poses and techniques to build strength, flexibility, and confidence. Start your yoga journey with us in a supportive and friendly environment.",
     features: [
       {
@@ -153,7 +148,7 @@ const classItems = [
                   <AppPicture
                     class="classes__img"
                     name="tabs-1"
-                    alt="item.title"
+                    :alt="item.title"
                     loading="lazy"
                     @contextmenu.prevent
                   />
@@ -174,7 +169,7 @@ const classItems = [
                   </div>
                 </div>
               </div>
-              <AppButton class="classes__btn-link">Get Your Free Trial</AppButton>
+              <AppButton to="/" class="classes__btn-link">Get Your Free Trial</AppButton>
             </div>
           </template>
         </AppTabs>
@@ -232,11 +227,14 @@ const classItems = [
   }
 
   // .classes__image
-  &__image {
+  :deep(.classes__image) {
   }
 
   // .classes__img
-  &__img {
+  :deep(.classes__img) {
+    img {
+      border-radius: 15px;
+    }
   }
 
   // .classes__info

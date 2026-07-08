@@ -26,8 +26,8 @@ import AppPicture from "@/components/ui/AppPicture.vue";
             </p>
           </div>
           <div class="hero__btn">
-            <AppButton class="hero__btn-link">Book A Session</AppButton>
-            <AppButton class="hero__btn-contacts">
+            <AppButton to="/" class="hero__btn-link">Book A Session</AppButton>
+            <AppButton to="/" class="hero__btn-contacts">
               <span>Contact Us</span>
               <svg class="hero__arrow"><use href="/images/sprite/sprite.svg#--icon-arrow"></use></svg>
             </AppButton>

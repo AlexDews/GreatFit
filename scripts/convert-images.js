@@ -72,29 +72,30 @@ async function convertSingleImage(imgPath, isWatchEvent = false) {
     const hasWebp = await fileExists(webpPath);
 
     if (imageCache[relativePath] === currentHash && hasAvif && hasWebp) {
-      // Если это просто старт скрипта — молча скипаем. Если это событие watch — выводим инфо
       if (isWatchEvent) {
         console.log(`ℹ️  ${path.basename(imgPath)} не изменился (кэш совпадает)`);
       }
       return;
     }
 
-    const image = sharp(imgPath);
+    // Читаем файл в буфер, чтобы Sharp не блокировал его при перезаписи JPG
+    const inputBuffer = await readFile(imgPath);
+    const image = sharp(inputBuffer);
 
     // Оптимизация: effort 4 — идеальный баланс скорости и веса
+    // mozjpeg: true сделает твой исходный JPG супер-сжатым без потери качества
     await image.clone().jpeg({ quality: 75, progressive: true, mozjpeg: true }).toFile(jpegPath);
-    await image.clone().avif({ quality: 65, effort: 6 }).toFile(avifPath);
-    await image.clone().webp({ quality: 80, effort: 6 }).toFile(webpPath);
+    await image.clone().avif({ quality: 65, effort: 4 }).toFile(avifPath);
+    await image.clone().webp({ quality: 80, effort: 4 }).toFile(webpPath);
 
     // Записываем хэш в кэш
     imageCache[relativePath] = currentHash;
 
-    // Если это одиночное добавление в watch-режиме, сразу обновляем json на диске
     if (isWatchEvent) {
       await saveMetadata();
     }
 
-    console.log(`☑️  ${path.basename(imgPath)} -> AVIF & WebP оптимизированы`);
+    console.log(`☑️  ${path.basename(imgPath)} -> Оптимизирован (JPG, AVIF, WebP)`);
   } catch (error) {
     console.error(`❌ Ошибка файла ${path.basename(imgPath)}:`, error.message);
   }
