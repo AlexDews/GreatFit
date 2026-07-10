@@ -8,43 +8,43 @@ const classTeams = [
     name: "Mark Andersson",
     image: "team-1",
     position: "Lead Yoga Instructor",
-		id: "mark-andersson"
+    id: "mark-andersson",
   },
   {
     name: "Julia Hurp",
     image: "team-2",
     position: "Yoga Instructor",
-		id: "julia-hurp"
+    id: "julia-hurp",
   },
   {
     name: "William Grok",
     image: "team-3",
     position: "Studio Manager",
-		id: "william-grok"
+    id: "william-grok",
   },
   {
     name: "Alisa Milova",
     image: "team-4",
     position: "Front Desk Lead",
-		id: "alisa-milova"
+    id: "alisa-milova",
   },
   {
     name: "Andry Middleson",
     image: "team-5",
     position: "Bodywork",
-		id: "andry-middleson"
+    id: "andry-middleson",
   },
   {
     name: "Alivia Carter",
     image: "team-6",
     position: "Substitute Teacher",
-		id: "alivia-carter"
+    id: "alivia-carter",
   },
 ];
 </script>
 
 <template>
-  <section class="main__team team">
+  <section class="main__team team ptb">
     <div class="team__container">
       <AppTitle
         title="Our Great Team"
@@ -63,7 +63,7 @@ const classTeams = [
             v-for="(team, index) in classTeams"
             :key="index"
             class="team__item"
-						:to="`/team/${team.id}`"
+            :to="`/team/${team.id}`"
           >
             <AppPicture
               class="team__img"
@@ -78,7 +78,12 @@ const classTeams = [
             </div>
           </RouterLink>
         </div>
-        <AppButton to="/" class="team__btn-link">Learn More About Us</AppButton>
+        <AppButton
+          to="/"
+          class="team__btn-link"
+        >
+          Learn More About Us
+        </AppButton>
       </div>
     </div>
   </section>
@@ -88,6 +93,7 @@ const classTeams = [
 .main {
   // .main__team
   &__team {
+    background-color: #fff;
   }
 }
 .team {
@@ -117,7 +123,7 @@ const classTeams = [
     gap: 48px;
     margin-bottom: 48px;
     width: 100%;
-		justify-items: center;
+    justify-items: center;
   }
 
   // .team__item
@@ -163,6 +169,14 @@ const classTeams = [
     transform: translateY(-100%);
     transition: transform 0.3s ease 0s;
     pointer-events: none;
+
+    @media (max-width: $tablet) {
+      @include adaptiveValue("top", 200, 150);
+
+      left: 0;
+      transform: translateY(0);
+      height: 100px;
+    }
   }
 
   // .team__name

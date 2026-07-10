@@ -1,5 +1,13 @@
 [
   {
+    "name": "yt",
+    "id": "--icon-yt"
+  },
+  {
+    "name": "x",
+    "id": "--icon-x"
+  },
+  {
     "name": "spa",
     "id": "--icon-spa"
   },
@@ -18,6 +26,10 @@
   {
     "name": "lessons",
     "id": "--icon-lessons"
+  },
+  {
+    "name": "copy",
+    "id": "--icon-copy"
   },
   {
     "name": "cart",

@@ -71,40 +71,26 @@
   $widthFrom: math.div($widthFrom, ($widthFrom * 0 + 1));
   $widthTo: math.div($widthTo, ($widthTo * 0 + 1));
 
-  // ~ 2. Валидация
   @if $startSize == $minSize {
-    #{$property}: #{$startSize + px};
+    #{$property}: #{$startSize}px;
   } @else {
-    // 3. Логика для контейнера
     @if $widthFrom == $containerWidth and $maxWidthContainer == 0 {
       $widthFrom: $maxWidth;
     }
 
-    // 4. Математический расчет slope (наклонной)
+    // Математический расчет наклонной
     $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
     $yIntersection: -$widthTo * $slope + $minSize;
-    $flyValue: string.unquote("#{$yIntersection + px} + #{$slope * 100}vw");
 
-    // 5. Определение границ для clamp()
+    // Формируем внутреннюю часть calc с пробелами
+    $flyValue: "calc(#{$yIntersection}px + #{$slope * 100}vw)";
+
+    // Выводим ТОЛЬКО чистое свойство через интерполяцию строки.
+    // Браузер сам отсечет верх и низ, медиа-запросы не нужны!
     @if $startSize > $minSize {
-      #{$property}: clamp(#{$minSize + px}, #{$flyValue}, #{$startSize + px});
+      #{$property}: #{string.unquote("clamp(#{$minSize}px, #{$flyValue}, #{$startSize}px)")};
     } @else {
-      #{$property}: clamp(#{$startSize + px}, #{$flyValue}, #{$minSize + px});
-    }
-
-    // 6. Вывод стилей
-    // Верхняя граница
-    @if $keepSize != 1 and $keepSize != 3 {
-      @media (min-width: #{$widthFrom + px}) {
-        #{$property}: #{$startSize + px};
-      }
-    }
-
-    // Нижняя граница
-    @if $keepSize != 1 {
-      @media (max-width: #{$widthTo + px}) {
-        #{$property}: #{$minSize + px};
-      }
+      #{$property}: #{string.unquote("clamp(#{$startSize}px, #{$flyValue}, #{$minSize}px)")};
     }
   }
 }

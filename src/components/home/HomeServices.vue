@@ -12,15 +12,19 @@ onMounted(() => {
     autoplay: false,
     slidesPerView: "auto",
     spaceBetween: 50,
+    observer: true, // 💡 Важно для ресайза
+    observeParents: true, // 💡 Важно для ресайза
+    resizeObserver: true,
     navigation: {
       prevEl: ".services__btn--prev",
       nextEl: ".services__btn--next",
     },
     breakpoints: {
       320: { spaceBetween: 15, centeredSlides: true },
-      768: { spaceBetween: 24 },
-      992: { spaceBetween: 50 },
+      768: { spaceBetween: 24, centeredSlides: false },
+      992: { spaceBetween: 50, centeredSlides: false },
     },
+    centeredSlides: false,
   };
 });
 
@@ -69,7 +73,7 @@ const servicesList = [
 </script>
 
 <template>
-  <section class="main__services services">
+  <section class="main__services services ptb">
     <div class="services__container">
       <AppTitle
         title="Our Services"
@@ -83,7 +87,12 @@ const servicesList = [
               Explore yoga at our serene studio with a complimentary session. Meet our instructors and discover the
               benefits
             </p>
-            <AppButton to="/" class="card__btn card__btn--promo">Get Started Today</AppButton>
+            <AppButton
+              to="/"
+              class="card__btn card__btn--promo"
+            >
+              Get Started Today
+            </AppButton>
           </div>
         </div>
         <AppSwiper
@@ -133,7 +142,7 @@ const servicesList = [
 .main {
   // .main__services
   &__services {
-    padding: 96px 0;
+    background-color: #fff;
   }
 }
 .services {
@@ -215,8 +224,10 @@ const servicesList = [
   // .services__btn
   &__btn {
     display: flex;
+    margin-top: 40px;
     svg {
       width: 40px;
+      height: 40px;
       fill: $colorAccent;
     }
   }

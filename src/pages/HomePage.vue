@@ -7,6 +7,7 @@
       <HomeServices />
       <HomeClasses />
       <HomeTeam />
+      <HomeMember />
     </main>
 
     <TheFooter />
@@ -23,6 +24,7 @@ import HomeHero from "@/components/home/HomeHero.vue";
 import HomeServices from "@/components/home/HomeServices.vue";
 import HomeClasses from "@/components/home/HomeClasses.vue";
 import HomeTeam from "@/components/home/HomeTeam.vue";
+import HomeMember from "@/components/home/HomeMember.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
 
 //~ Подключаем системное ядро (наш глобальный бутлоадер)

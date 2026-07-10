@@ -172,7 +172,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .ln-tabs {
   width: 100%;
 }
@@ -199,15 +199,14 @@ onUnmounted(() => {
 }
 
 .ln-tabs__title._tab-active {
-  color: #4f46e5;
-  border-bottom-color: #4f46e5;
+  color: #fff;
+  border-bottom-color: $fontColor;
 }
 
 /* Мобильный вид (Аккордеон) */
 .ln-tabs__title--mobile {
   width: 100%;
   text-align: left;
-  border: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 5px;
   border-radius: 4px;
@@ -215,13 +214,12 @@ onUnmounted(() => {
 }
 
 .ln-tabs__title--mobile._tab-active {
-  background: #e0e7ff;
-  border-color: #4f46e5;
+  background: $colorAccent;
 }
 
 .ln-tabs__content {
   padding: 15px 5px;
   line-height: 1.6;
-  color: #333;
+  color: $fontColor;
 }
 </style>

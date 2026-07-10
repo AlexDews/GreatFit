@@ -36,3 +36,8 @@ body {
 .main {
   flex: 1;
 }
+
+.ptb {
+  @include adaptiveValue("padding-top", 96, 76);
+  @include adaptiveValue("padding-bottom", 96, 76);
+}

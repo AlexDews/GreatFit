@@ -124,7 +124,7 @@ const classItems = [
 </script>
 
 <template>
-  <section class="main__classes classes">
+  <section class="main__classes classes ptb">
     <div class="classes__container">
       <AppTitle
         title="Latest Classes"
@@ -169,7 +169,12 @@ const classItems = [
                   </div>
                 </div>
               </div>
-              <AppButton to="/" class="classes__btn-link">Get Your Free Trial</AppButton>
+              <AppButton
+                to="/"
+                class="classes__btn-link"
+              >
+                Get Your Free Trial
+              </AppButton>
             </div>
           </template>
         </AppTabs>
@@ -182,6 +187,7 @@ const classItems = [
 .main {
   // .main__classes
   &__classes {
+    background-color: #F1EFE5;
   }
 }
 .classes {
@@ -217,74 +223,110 @@ const classItems = [
     color: $fontColor;
     flex-direction: column;
     align-items: center;
-    gap: 48px;
+
+    @include adaptiveValue("gap", 48, 30, $containerWidth, $tablet);
   }
 
   // .classes__item
   &__item {
     display: flex;
-    gap: 48px;
+    align-items: flex-start;
+
+    @include adaptiveValue("gap", 48, 30, $containerWidth, $tablet);
+
+    @media (max-width: $tablet) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   // .classes__image
-  :deep(.classes__image) {
+  &__image {
+    flex: 0 0 50%;
+    min-width: 0;
   }
 
   // .classes__img
   :deep(.classes__img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+
+    @media (max-width: $tablet) {
+      max-width: 100%;
+    }
+
     img {
-      border-radius: 15px;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px; // Скругление как на скрине
+
+      @media (max-width: $tablet) {
+      max-width: 100%;
+    }
     }
   }
 
   // .classes__info
   &__info {
+    flex: 1 1 60%;
+    min-width: 0;
   }
 
   // .classes__info-title
   &__info-title {
-    font-size: 24px;
+    @include adaptiveValue("font-size", 24, 18, $containerWidth, $tablet);
+    @include adaptiveValue("margin-bottom", 25, 10, $containerWidth, $tablet);
+
     font-weight: 700;
-    margin-bottom: 25px;
   }
 
   // .classes__info-text
   &__info-text {
     line-height: math.div(28, 16);
-    margin-bottom: 48px;
+
+    @include adaptiveValue("margin-bottom", 48, 30, $containerWidth, $tablet);
   }
 
   // .classes__features
   &__features {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 48px;
+
+    @include adaptiveValue("gap", 48, 30, $containerWidth, $tablet);
   }
 
   // .classes__feature
   &__feature {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+
+    @include adaptiveValue("gap", 25, 10, $containerWidth, $tablet);
   }
 
   // .classes__feature-num
   &__feature-num {
     display: flex;
-    width: 90px;
-    height: 90px;
     justify-content: center;
     align-items: center;
-    font-size: 64px;
     font-weight: 300;
     color: $colorAccent;
     border: 3px solid $colorAccent;
     border-radius: 50%;
+
+    @include adaptiveValue("width", 90, 70, $containerWidth, $tablet);
+    @include adaptiveValue("height", 90, 70, $containerWidth, $tablet);
+    @include adaptiveValue("font-size", 64, 48, $containerWidth, $tablet);
   }
 
   // .classes__feature-name
   &__feature-name {
-    font-size: 24px;
+    @include adaptiveValue("font-size", 24, 18, $containerWidth, $tablet);
+
     font-weight: 700;
   }
 

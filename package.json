@@ -5,9 +5,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "assets": "concurrently \"npm run fonts\" \"npm run icons\" \"npm run sprite\" \"npm run img:once\"",
-    "build": "npm run assets && vite build",
-    "dev": "npm run assets && concurrently --kill-others \"vite\" \"node scripts/convert-images.js --watch\"",
+    "assets:once": "concurrently \"npm run fonts\" \"npm run icons\" \"npm run sprite\" \"npm run img:once\"",
+    "assets:dev": "concurrently \"npm run fonts\" \"npm run icons\" \"npm run sprite\"",
+    "build": "npm run assets:once && vite build",
+    "dev": "npm run assets:dev && concurrently --kill-others \"vite\" \"node scripts/convert-images.js --watch\"",
     "img:once": "node scripts/convert-images.js",
     "img:watch": "node scripts/convert-images.js --watch",
     "icons": "node scripts/icon-fonts.js",

@@ -1,4 +1,4 @@
-# 🚀 Ультимативная Шпаргалка по Vue 3 (`<script setup>`) — Расширенная версия
+# 🚀 Ультимативная Шпаргалка по Vue 3 (`<script setup>`) — LuminaNexus
 
 Самый полный справочник со всеми нюансами, модификаторами и примерами из реальной практики. 
 
@@ -6,7 +6,7 @@
 1. [🛠️ 1. Реактивность (Основа основ)](#section-1)
 2. [📐 2. Директивы шаблона (Отрисовка и логика)](#section-2)
 3. [⚡ 3. События и Модификаторы (v-on / @)](#section-3)
-4. [📦 4. Работа с компонентами (Связь и Слоты)](#section-4)
+4. [📦 4. Работа с компонентами (Связь, Пропсы и Слоты)](#section-4)
 5. [⏳ 5. Жизненный цикл компонента (Хуки)](#section-5)
 6. [🎨 6. Встроенные компоненты Vue](#section-6)
 7. [🎯 7. Шаблонные ссылки (Template Refs) и DOM](#section-7)
@@ -18,10 +18,10 @@
 <a id="section-1"></a>
 ## 🛠️ 1. Реактивность (Основа основ)
 
-* `ref()` — универсальный вариант для любых данных. **Важно:** в `<script>` всегда обращаемся через `.value`, в `<template>` — без него.
-* `reactive()` — работает **только** с объектами. Не требует `.value`. Удобно для форм.
-* `computed()` — вычисляемое свойство. Кеширует результат и пересчитывается только при изменении зависимостей.
-* `watch()` — следит за переменной и выполняет код при её изменении.
+* **`ref()`** — универсальный вариант для любых данных (примитивы, массивы, объекты). **Важно:** в `<script>` всегда обращаемся через `.value`, в `<template>` — без него.
+* **`reactive()`** — работает **только** с объектами и массивами. Не требует `.value`. **Минус:** его нельзя перезаписать целиком (`formData = reactive({...})` потеряет реактивность), можно только менять свойства внутри.
+* **`computed()`** — вычисляемое свойство. Кеширует результат и пересчитывается только при изменении зависимостей. Предназначено только для чтения.
+* **`watch()`** — следит за переменной и выполняет код при её изменении. Для глубокого отслеживания объектов используем `{ deep: true }`.
 
 ```html
 <script setup>
@@ -37,6 +37,11 @@ const isPasswordSafe = computed(() => formData.password.length >= 8);
 watch(isOpen, (newVal) => {
   if (newVal) console.log('Попап открыт, блокируем скролл');
 });
+
+// Глубокое отслеживание объекта формы
+watch(formData, (newForm) => {
+  console.log('Пользователь что-то вводит...', newForm);
+}, { deep: true });
 </script>
 ```
 
@@ -55,8 +60,8 @@ watch(isOpen, (newVal) => {
 ```
 
 ### Условия (`v-if` vs `v-show`)
-* `v-if` — **Удаляет** элемент из DOM. Идеально для тяжелых компонентов, которые появляются редко.
-* `v-show` — **Прячет** через `display: none`. Идеально для частых переключений (попапы, табы).
+* **`v-if`** — **Удаляет/создает** элемент в DOM. Идеально для тяжелых компонентов, которые появляются редко.
+* **`v-show`** — **Прячет** через `display: none`. Идеально для частых переключений (попапы, мобильное меню, табы).
 
 ```html
 <template>
@@ -82,13 +87,13 @@ watch(isOpen, (newVal) => {
 ## ⚡ 3. События и Модификаторы (`v-on` или `@`)
 
 ### Обработка ввода (`@input` и `@change`)
-* `@input` — срабатывает **мгновенно** при каждом нажатии клавиши. Идеально для живого поиска.
-* `@change` — срабатывает только когда инпут **потерял фокус**. Идеально для валидации.
+* **`@input`** — срабатывает **мгновенно** при каждом нажатии клавиши/изменении. Идеально для живого поиска.
+* **`@change`** — срабатывает только когда инпут **потерял фокус** (blur) или выбор подтвержден. Идеально для финальной валидации формы.
 
 ```html
 <template>
   <input type="text" @input="liveSearch" placeholder="Живой поиск..." />
-  <input type="email" @change="validateEmail" placeholder="Проверка по завершению" />
+  <input type="email" @change="validateEmail" placeholder="Проверка при потере фокуса" />
 </template>
 ```
 
@@ -108,7 +113,7 @@ watch(isOpen, (newVal) => {
   <button @click.stop="doAction">Кликни меня</button>
 
   <div class="overlay" @click.self="closePopup">
-    <div class="content">Внутри кликать безопасно</div>
+    <div class="content">Внутри кликать безопасно — попап не закроется</div>
   </div>
 
   <input @keydown.enter="submitForm" @keydown.esc="clearInput" />
@@ -118,23 +123,87 @@ watch(isOpen, (newVal) => {
 ---
 
 <a id="section-4"></a>
-## 📦 4. Работа с компонентами (Связь и Слоты)
+## 📦 4. Работа с компонентами (Связь, Пропсы и Слоты)
 
 ### Пропсы и Эмиты (Props & Emits)
+* **Пропсы (`defineProps`)** — это входящие параметры, которые родитель передает в дочерний компонент. Они предназначены *только для чтения* (Read-Only), их нельзя изменять внутри дочернего компонента напрямую.
+* **Эмиты (`defineEmits`)** — это сигналы (события), которые дочерний компонент отправляет наверх родителю, часто передавая вместе с ними измененные данные.
+
+> 📌 **Правило синтаксиса:** В блоке `<script setup>` мы описываем свойства в **camelCase** (`menuItems`), но при передаче параметров в HTML-шаблоне родителя пишем их в **kebab-case** (`:menu-items="..."`).
+
 ```html
 <script setup>
+// Описываем пропсы через объект (Строгая валидация и коммерческий стандарт)
 defineProps({
-  text: { type: String, required: true },
-  color: { type: String, default: 'blue' }
+  // 1. Обязательный строковый проп
+  text: { 
+    type: String, 
+    required: true 
+  },
+
+  // 2. Строка с дефолтным значением
+  color: { 
+    type: String, 
+    default: 'blue' 
+  },
+
+  // 3. Числовой проп
+  size: {
+    type: Number,
+    default: 16
+  },
+
+  // 4. Булевый флаг (если просто написать в шаблоне :disabled или disabled, он станет true)
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+
+  // 5. ВАЖНО: Если тип Object или Array, дефолтное значение ОБЯЗАТЕЛЬНО пишется через функцию-фабрику
+  menuItems: {
+    type: Array,
+    default: () => [] // Возвращает пустой массив по умолчанию. Для объектов: () => ({})
+  },
+
+  // 6. Продвинутая кастомная валидация пропса
+  badgeType: {
+    type: String,
+    default: 'success',
+    validator: (value) => {
+      // Функция должна вернуть true, если значение валидно
+      return ['success', 'warning', 'danger'].includes(value);
+    }
+  }
 });
 
+// Объявляем события, которые компонент умеет отправлять наверх родительской секции
 const emit = defineEmits(['customClick']);
 </script>
 
 <template>
-  <button :class="color" @click="emit('customClick', 'Данные из кнопки')">
+  <button 
+    :class="[color, `badge_${badgeType}`]" 
+    :disabled="disabled"
+    :style="{ fontSize: size + 'px' }"
+    @click="emit('customClick', 'Данные из кнопки отправлены наверх')"
+  >
     {{ text }}
   </button>
+</template>
+```
+
+#### Использование этого компонента в родителе:
+```html
+<template>
+  <AppButton 
+    text="Click Me" 
+    color="orange"
+    badge-type="success"
+    :size="20" 
+    :disabled="false"
+    :menu-items="['Home', 'About']"
+    @customClick="handleButtonClick"
+  />
 </template>
 ```
 
@@ -142,14 +211,18 @@ const emit = defineEmits(['customClick']);
 ```html
 <template>
   <div class="card">
-    <div class="card-header"><slot name="header"></slot></div>
-    <div class="card-body"><slot></slot></div> </div>
+    <div class="card-header"><slot name="header">Дефолтный заголовок</slot></div>
+    <div class="card-body"><slot>Дефолтный текст, если ничего не передали</slot></div>
+  </div>
 </template>
 
 <template>
   <AppCard>
-    <template #header><h3>Заголовок</h3></template>
-    <p>Основной текст карточки</p>
+    <template #header>
+      <h3>Заголовок из родителя</h3>
+    </template>
+    
+    <p>Основной текст карточки (уйдет в дефолтный слот без имени)</p>
   </AppCard>
 </template>
 ```

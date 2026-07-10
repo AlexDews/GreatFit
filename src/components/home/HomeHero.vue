@@ -5,12 +5,14 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 </script>
 
 <template>
-  <section class="main__hero hero">
+  <section class="main__hero hero ptb">
     <div class="hero__wrapper">
       <div class="hero__image">
         <AppPicture
           class="hero__img"
           name="first"
+          is-tab="first-tablet"
+          is-mob-small="first-mobile"
           alt="Yoga"
           loading="eager"
           @contextmenu.prevent
@@ -26,8 +28,16 @@ import AppPicture from "@/components/ui/AppPicture.vue";
             </p>
           </div>
           <div class="hero__btn">
-            <AppButton to="/" class="hero__btn-link">Book A Session</AppButton>
-            <AppButton to="/" class="hero__btn-contacts">
+            <AppButton
+              to="/"
+              class="hero__btn-link"
+            >
+              Book A Session
+            </AppButton>
+            <AppButton
+              to="/"
+              class="hero__btn-contacts"
+            >
               <span>Contact Us</span>
               <svg class="hero__arrow"><use href="/images/sprite/sprite.svg#--icon-arrow"></use></svg>
             </AppButton>
@@ -43,9 +53,6 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 }
 
 .hero {
-  @include adaptiveValue("padding-top", 120, 100);
-  @include adaptiveValue("padding-bottom", 120, 100);
-  
   height: 100vh;
 
   // .hero__wrapper
@@ -87,11 +94,11 @@ import AppPicture from "@/components/ui/AppPicture.vue";
     position: relative;
     width: 45%;
 
-    @media (max-width:$tablet){
+    @media (max-width: $tablet) {
       width: 75%;
     }
 
-    @media (max-width:$mobile){
+    @media (max-width: $mobile) {
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -103,13 +110,17 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 
   // .hero__title
   &__title {
-    @include adaptiveValue("font-size", 66, 40);
+    @include adaptiveValue("font-size", 66, 40, $containerWidth, $mobile);
+    @include adaptiveValue("margin-bottom", 20, 10);
 
     font-weight: 600;
     text-transform: uppercase;
     line-height: math.div(130, 100) * 100%;
     color: $fontMainColor;
-    margin-bottom: 20px;
+
+    @media (max-width: $mobileSmall) {
+      font-size: 28px;
+    }
   }
 
   // .hero__subtitle
@@ -120,14 +131,17 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 
   // .hero__btn
   &__btn {
-    @include adaptiveValue("margin-top", 35, 20);
-
-    display: flex;
+    margin-top: 35px;
     gap: 10px;
+    display: flex;
   }
 
   // .hero__btn-link
   &__btn-link {
+    @media (max-width: $mobileSmall) {
+      font-size: 14px;
+      padding: 15px 10px;
+    }
   }
 
   // .hero__btn-contacts
@@ -148,6 +162,15 @@ import AppPicture from "@/components/ui/AppPicture.vue";
           transform: translateX(3px);
         }
       }
+    }
+
+    @media (max-width: $mobile) {
+      background-color: #fff;
+    }
+
+    @media (max-width: $mobileSmall) {
+      font-size: 14px;
+      padding: 15px 10px;
     }
   }
 
