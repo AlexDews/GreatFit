@@ -1,0 +1,1 @@
+const e=[{name:"Inter",family:"Inter",weights:[900,700,800,200,300,500,400,600,100],sample:"The quick brown fox jumps over the lazy dog"},{name:"Montserrat",family:"Montserrat",weights:[900,700,800,200,300,500,400,600,100],sample:"The quick brown fox jumps over the lazy dog"}];export{e as default};

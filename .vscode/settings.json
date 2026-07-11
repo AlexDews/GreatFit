@@ -1,0 +1,23 @@
+{
+  // Для SCSS ставим стандартный форматтер Stylelint
+  "[scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    "editor.formatOnSave": true
+  },
+
+  // Для Vue ставим в качестве форматтера Prettier (или Volar, если пользуешься им)
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+
+  // ВОТ ЭТО САМАЯ ВАЖНАЯ ЧАСТЬ: она заставляет линтеры исправлять отступы, пустые строки и точки с запятой
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "stylelint.validate": ["css", "scss", "vue"],
+
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
+}
