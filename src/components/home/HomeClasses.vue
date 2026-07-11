@@ -187,7 +187,9 @@ const classItems = [
 .main {
   // .main__classes
   &__classes {
-    background-color: #F1EFE5;
+    position: relative;
+    z-index: 2;
+    background-color: #f1efe5;
   }
 }
 .classes {
@@ -266,8 +268,8 @@ const classItems = [
       border-radius: 15px; // Скругление как на скрине
 
       @media (max-width: $tablet) {
-      max-width: 100%;
-    }
+        max-width: 100%;
+      }
     }
   }
 

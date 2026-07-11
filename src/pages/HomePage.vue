@@ -13,6 +13,7 @@
     <TheFooter />
 
     <TheMobileMenu />
+    <AppAnimator />
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import HomeClasses from "@/components/home/HomeClasses.vue";
 import HomeTeam from "@/components/home/HomeTeam.vue";
 import HomeMember from "@/components/home/HomeMember.vue";
 import TheFooter from "@/components/layouts/TheFooter.vue";
+import AppAnimator from "@/components/modules/animator/AppAnimator.vue";
 
 //~ Подключаем системное ядро (наш глобальный бутлоадер)
 import { useSystemInit } from "@/core/useSystemInit.js";

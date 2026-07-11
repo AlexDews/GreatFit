@@ -53,6 +53,9 @@ import AppPicture from "@/components/ui/AppPicture.vue";
 }
 
 .hero {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   height: 100vh;
 
   // .hero__wrapper

@@ -142,6 +142,8 @@ const servicesList = [
 .main {
   // .main__services
   &__services {
+    position: relative;
+    z-index: 2;
     background-color: #fff;
   }
 }

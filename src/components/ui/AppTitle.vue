@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="app-title">
+  <div class="app-title" data-animate="fade-left">
     <h2 class="app-title__main">{{ title }}</h2>
     <p
       v-if="subtitle"

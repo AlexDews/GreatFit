@@ -93,6 +93,8 @@ const classTeams = [
 .main {
   // .main__team
   &__team {
+    position: relative;
+    z-index: 2;
     background-color: #fff;
   }
 }

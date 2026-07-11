@@ -47,6 +47,9 @@ import AppButton from "@/components/ui/AppButton.vue";
 .main {
   // .main__member
   &__member {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
   }
 }
 .member {
