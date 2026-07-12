@@ -18,13 +18,12 @@ const initAnimations = () => {
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
-          toggleActions: 'play none none none'
+          toggleActions: 'restart none none reset'
         },
         opacity: 0,
         y: 40,
         duration: 0.8,
         ease: 'power2.out',
-        clearProps: 'all'
       });
     });
 
@@ -33,14 +32,13 @@ const initAnimations = () => {
       gsap.from(el, {
         scrollTrigger: {
           trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
+          start: 'top 100%',
+          toggleActions: 'restart none none reset'
         },
         opacity: 0,
         x: 150,
         duration: 1.8,
         ease: 'power2.out',
-        clearProps: 'all'
       });
     });
   });

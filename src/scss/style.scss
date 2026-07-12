@@ -31,6 +31,8 @@ body {
   background-color: $colorBg;
   color: $fontColor;
   position: relative;
+  overflow-x: hidden;
+  min-height: 100%;
 }
 
 .main {

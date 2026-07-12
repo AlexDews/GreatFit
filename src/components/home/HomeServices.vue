@@ -4,6 +4,8 @@ import AppSwiper from "@modules/swiper/AppSlider.vue";
 import AppButton from "@/components/ui/AppButton.vue";
 import AppTitle from "@/components/ui/AppTitle.vue";
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 const swiperOptions = ref(null);
 
 onMounted(() => {
@@ -108,7 +110,9 @@ const servicesList = [
           >
             <div class="services__card card">
               <div class="card__icon">
-                <svg><use :href="`/images/sprite/sprite.svg#--icon-${service.icon}`"></use></svg>
+                <svg>
+                  <use :href="`${BASE_URL}images/sprite/sprite.svg#--icon-${service.icon}`" />
+                </svg>
               </div>
 
               <h4 class="card__title">{{ service.title }}</h4>

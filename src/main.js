@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./core/router";
+import { initSmoothScroll } from './core/smoothScroll.js'
 
 /**
  ** LuminaNexus Vite Asset Scanner & Global Styles
@@ -21,6 +22,8 @@ const app = createApp(App);
 
 app.use(router);
 app.mount("#app");
+
+initSmoothScroll();
 
 /**
  ** LuminaNexus Brand Ecosystem Banner

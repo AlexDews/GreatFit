@@ -13,7 +13,7 @@ const SHOW_STYLEGUIDE = true; // Вкл/Выкл кнопку StyleGuide
 
 export default defineConfig({
   root: "./",
-  base: "./",
+  base: '/GreatFit/',
   server: {
     open: true,
     watch: {

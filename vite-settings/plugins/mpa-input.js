@@ -15,7 +15,7 @@ export function mpaInputPlugin(srcDir, isHash) {
       if (!config.build.rollupOptions) config.build.rollupOptions = {};
 
       config.build.rollupOptions.input = {
-        main: path.resolve(srcDir, "index.html"),
+        main: path.resolve(srcDir, "..", "index.html"),
       };
 
       // 2. Настраиваем Rollup для красивого и понятного вывода ассетов
@@ -38,6 +38,11 @@ export function mpaInputPlugin(srcDir, isHash) {
           // Шрифты
           if (/\.(woff2|woff|ttf|otf)$/.test(assetInfo.name)) {
             return `assets/fonts/[name][extname]`;
+          }
+
+          // Иконки SVG и PNG для разметки пусть собираются в ассеты
+          if (/favicon|apple-touch-icon/.test(assetInfo.name) && !assetInfo.name.endsWith(".ico")) {
+            return `assets/images/[name]${hashPart}[extname]`;
           }
 
           // Картинки
@@ -66,17 +71,6 @@ export function mpaInputPlugin(srcDir, isHash) {
           if (!fs.existsSync(dest)) copyFileSync(f, dest);
         });
         console.log("  ✅ Шрифты успешно перенесены");
-      }
-
-      // Копирование SVG-спрайта
-      const spriteDest = path.join(outDir, "assets/images/sprite");
-      const spriteFiles = globSync("src/assets/images/svg/sprite/*.svg");
-      if (spriteFiles.length > 0) {
-        mkdirSync(spriteDest, { recursive: true });
-        spriteFiles.forEach((f) => {
-          copyFileSync(f, path.join(spriteDest, path.basename(f)));
-        });
-        console.log("  ✅ SVG-спрайт скопирован");
       }
 
       // Копирование обработанных картинок (чтобы точно ничего не потерялось)
